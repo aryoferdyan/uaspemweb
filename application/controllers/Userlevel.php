@@ -30,7 +30,7 @@ class Userlevel extends CI_Controller
         if ($row) {
             $data = array(
 		'id_user_level' => $row->id_user_level,
-		'nama_level' => $row->nama_level,
+		'nama_level' => $row->nama_level
 	    );
             $this->template->load('template','userlevel/tbl_user_level_read', $data);
         } else {

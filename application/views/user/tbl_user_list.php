@@ -77,7 +77,7 @@
                         {"data": "email"},
                         {"data": "nama_level"},
                         {"data": "is_aktif"},
-                        {"data": "karyawan"},
+                        {"data": "id_karyawan"},
                         {
                             "data" : "action",
                             "orderable": false,
