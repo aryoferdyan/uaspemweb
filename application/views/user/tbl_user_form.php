@@ -8,7 +8,11 @@
             <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
 
                 <table class='table table-bordered>'        
-
+                    <tr>
+						<td width='200'>ID Karyawan <?php echo form_error('id_karyawan') ?></td>
+						<td><?php echo cmb_dinamis('id_karyawan', 'karyawan', 'karyawan', 'id_karyawan', $id_karyawan,'DESC') ?>
+						<!-- <td><input type="text" class="form-control" name="id_jabatan" id="id_jabatan" placeholder="Id Jabatan" value="<?php echo $id_jabatan; ?>" /></td> -->
+                    </tr>
                        <tr><td width='200'>Nama Lengkap <?php echo form_error('full_name') ?></td><td><input type="text" class="form-control" name="full_name" id="full_name" placeholder="Full Name" value="<?php echo $full_name; ?>" /></td></tr>
                     <tr><td width='200'>Email <?php echo form_error('email') ?></td><td>
 

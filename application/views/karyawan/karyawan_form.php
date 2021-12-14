@@ -14,32 +14,34 @@
 					</tr>
 	
 					<tr>
-						<td width='200'>Sex <?php echo form_error('sex') ?></td>
-						<td><select class="form-control" id="sex" name="sex" placeholder="Sex">
-							<option value="1" <?php if($sex == 1){echo 'selected';}?>>Laki-laki</option>
-							<option value="0" <?php if($sex == 0){echo 'selected';}?>>Perempuan</option>
+						<td width='200'>Jenis Kelamin <?php echo form_error('sex') ?></td>
+						<td>
+							<select class="form-control" name="sex" id="sex">
+								<option value="0" <?php if($sex == 0){echo "selected";}?>>Perempuan</option>
+								<option value="1" <?php if($sex == 1){echo "selected";}?>>Laki-laki</option>
 							</select>
 						</td>
 					</tr>
 	
 					<tr>
-						<td width='200'>Address <?php echo form_error('address') ?></td>
+						<td width='200'>Alamat <?php echo form_error('address') ?></td>
 						<td><input type="text" class="form-control" name="address" id="address" placeholder="Address" value="<?php echo $address; ?>" /></td>
 					</tr>
 	
 					<tr>
-						<td width='200'>Place <?php echo form_error('place') ?></td>
+						<td width='200'>Tempat Lahir <?php echo form_error('place') ?></td>
 						<td><input type="text" class="form-control" name="place" id="place" placeholder="Place" value="<?php echo $place; ?>" /></td>
 					</tr>
 	
 					<tr>
-						<td width='200'>Date <?php echo form_error('date') ?></td>
+						<td width='200'>Tanggal Lahir <?php echo form_error('date') ?></td>
 						<td><input type="date" class="form-control" name="date" id="date" placeholder="Date" value="<?php echo $date; ?>" /></td>
 					</tr>
 	
 					<tr>
-						<td width='200'>Id Jabatan <?php echo form_error('id_jabatan') ?></td>
-						<td><input type="text" class="form-control" name="id_jabatan" id="id_jabatan" placeholder="Id Jabatan" value="<?php echo $id_jabatan; ?>" /></td>
+						<td width='200'>Jabatan <?php echo form_error('id_jabatan') ?></td>
+						<td><?php echo cmb_dinamis('id_jabatan', 'karyawan_jabatan', 'jabatan', 'id_jabatan', $id_jabatan,'DESC') ?>
+						<!-- <td><input type="text" class="form-control" name="id_jabatan" id="id_jabatan" placeholder="Id Jabatan" value="<?php echo $id_jabatan; ?>" /></td> -->
 					</tr>
 	
 					<tr>
@@ -48,8 +50,9 @@
 					</tr>
 	
 					<tr>
-						<td width='200'>Id Devisi <?php echo form_error('id_devisi') ?></td>
-						<td><input type="text" class="form-control" name="id_devisi" id="id_devisi" placeholder="Id Devisi" value="<?php echo $id_devisi; ?>" /></td>
+						<td width='200'>Devisi <?php echo form_error('id_devisi') ?></td>
+						<!-- <td><input type="text" class="form-control" name="id_devisi" id="id_devisi" placeholder="Id Devisi" value="<?php echo $id_devisi; ?>" /></td> -->
+						<td><?php echo cmb_dinamis('id_devisi', 'karyawan_devisi', 'devisi', 'id_devisi', $id_devisi,'ASC') ?>
 					</tr>
 	
 					<tr>
