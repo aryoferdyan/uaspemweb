@@ -9,19 +9,27 @@
 				<table class='table table-bordered'>
 	
 					<tr>
-						<td width='200'>Nama <?php echo form_error('nama') ?></td><td><input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" value="<?php echo $nama; ?>" /></td>
+						<td width='200'>Nama <?php echo form_error('nama') ?></td>
+						<td><input type="text" class="form-control" name="nama" id="nama" placeholder="Nama" value="<?php echo $nama; ?>" /></td>
 					</tr>
 	
 					<tr>
-						<td width='200'>Sex <?php echo form_error('sex') ?></td><td><input type="text" class="form-control" name="sex" id="sex" placeholder="Sex" value="<?php echo $sex; ?>" /></td>
+						<td width='200'>Sex <?php echo form_error('sex') ?></td>
+						<td><select class="form-control" id="sex" name="sex" placeholder="Sex">
+							<option value="1" <?php if($sex == 1){echo 'selected';}?>>Laki-laki</option>
+							<option value="0" <?php if($sex == 0){echo 'selected';}?>>Perempuan</option>
+							</select>
+						</td>
 					</tr>
 	
 					<tr>
-						<td width='200'>Address <?php echo form_error('address') ?></td><td><input type="text" class="form-control" name="address" id="address" placeholder="Address" value="<?php echo $address; ?>" /></td>
+						<td width='200'>Address <?php echo form_error('address') ?></td>
+						<td><input type="text" class="form-control" name="address" id="address" placeholder="Address" value="<?php echo $address; ?>" /></td>
 					</tr>
 	
 					<tr>
-						<td width='200'>Place <?php echo form_error('place') ?></td><td><input type="text" class="form-control" name="place" id="place" placeholder="Place" value="<?php echo $place; ?>" /></td>
+						<td width='200'>Place <?php echo form_error('place') ?></td>
+						<td><input type="text" class="form-control" name="place" id="place" placeholder="Place" value="<?php echo $place; ?>" /></td>
 					</tr>
 	
 					<tr>
@@ -30,15 +38,18 @@
 					</tr>
 	
 					<tr>
-						<td width='200'>Id Jabatan <?php echo form_error('id_jabatan') ?></td><td><input type="text" class="form-control" name="id_jabatan" id="id_jabatan" placeholder="Id Jabatan" value="<?php echo $id_jabatan; ?>" /></td>
+						<td width='200'>Id Jabatan <?php echo form_error('id_jabatan') ?></td>
+						<td><input type="text" class="form-control" name="id_jabatan" id="id_jabatan" placeholder="Id Jabatan" value="<?php echo $id_jabatan; ?>" /></td>
 					</tr>
 	
 					<tr>
-						<td width='200'>Salary <?php echo form_error('salary') ?></td><td><input type="text" class="form-control" name="salary" id="salary" placeholder="Salary" value="<?php echo $salary; ?>" /></td>
+						<td width='200'>Salary <?php echo form_error('salary') ?></td>
+						<td><input type="text" class="form-control" name="salary" id="salary" placeholder="Salary" value="<?php echo $salary; ?>" /></td>
 					</tr>
 	
 					<tr>
-						<td width='200'>Id Devisi <?php echo form_error('id_devisi') ?></td><td><input type="text" class="form-control" name="id_devisi" id="id_devisi" placeholder="Id Devisi" value="<?php echo $id_devisi; ?>" /></td>
+						<td width='200'>Id Devisi <?php echo form_error('id_devisi') ?></td>
+						<td><input type="text" class="form-control" name="id_devisi" id="id_devisi" placeholder="Id Devisi" value="<?php echo $id_devisi; ?>" /></td>
 					</tr>
 	
 					<tr>

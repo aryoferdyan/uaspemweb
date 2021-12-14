@@ -20,6 +20,8 @@ class Karyawan_model extends CI_Model
     {
         $this->db->order_by($this->id, $this->order);
         return $this->db->get($this->table)->result();
+        $this->db->join('karyawan_jabatan', 'karyawan.id_jabatan = karyawan_jabatan.id_jabatan');
+
     }
 
     // get data by id
@@ -48,7 +50,7 @@ class Karyawan_model extends CI_Model
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL)
     {
-        $this->db->order_by($this->id, $this->order);
+        $this->db->order_by($this->id, $this->order); 
         $this->db->like('id_karyawan', $q);
         $this->db->or_like('nama', $q);
         $this->db->or_like('sex', $q);

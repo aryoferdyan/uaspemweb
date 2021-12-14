@@ -16,19 +16,7 @@
             </div>
             <div class=' col-md-3'>
                                     <form action="<?php echo site_url('karyawan/index'); ?>" class="form-inline" method="get">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="q" value="<?php echo $q; ?>">
-                                            <span class="input-group-btn">
-                                                <?php
-                                                if ($q <> '') {
-                                                ?>
-                                                    <a href="<?php echo site_url('karyawan'); ?>" class="btn btn-default">Reset</a>
-                                                <?php
-                                                }
-                                                ?>
-                                                <button class="btn btn-primary" type="submit">Search</button>
-                                            </span>
-                                        </div>
+                                        
                                     </form>
                                 </div>
                             </div>
@@ -72,7 +60,9 @@
                                         <td><?php echo $karyawan->address ?></td>
                                         <td><?php echo $karyawan->place ?></td>
                                         <td><?php echo $karyawan->date ?></td>
-                                        <td><?php echo $karyawan->id_jabatan
+                                        <td><?php $x = $karyawan->id_jabatan;
+                                                 $query = $this->db->query("SELECT jabatan FROM karyawan_jabatan WHERE id_jabatan = $x");
+                                                 print_r($query->result());
                                             ?></td>
                                         <td><?php echo $karyawan->salary ?></td>
                                         <td><?php echo $karyawan->id_devisi ?></td>
