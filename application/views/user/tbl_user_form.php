@@ -9,7 +9,7 @@
 
                 <table class='table table-bordered>' <tr>
                     <td width='200'>Nama Karyawan <?php echo form_error('id_karyawan') ?></td>
-                    <td><?php echo cmb_dinamis('id_karyawan', 'karyawan', 'nama', 'id_karyawan', $id_karyawan,'ASC') ?>
+                    <td><?php echo cmb_dinamis('id_karyawan', 'karyawan', 'nama', 'id_karyawan', $id_users,'ASC') ?>
                         </tr>
                         <tr>
                             <td width='200'>Username <?php echo form_error('full_name') ?></td>

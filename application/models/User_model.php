@@ -18,7 +18,7 @@ class User_model extends CI_Model
     // datatables
     function json()
     {
-        $this->datatables->select('id_users,full_name,email,nama_level,is_aktif,id_karyawan');
+        $this->datatables->select('id_users,full_name,email,nama_level,is_aktif');
         $this->datatables->from('tbl_user');
         $this->datatables->add_column('is_aktif', '$1', 'rename_string_is_aktif(is_aktif)');
         //add this line for join
@@ -54,7 +54,7 @@ class User_model extends CI_Model
         $this->db->or_like('images', $q);
         $this->db->or_like('id_user_level', $q);
         $this->db->or_like('is_aktif', $q);
-        $this->db->or_like('id_karyawan', $q);
+        // $this->db->or_like('id_karyawan', $q);
         $this->db->from($this->table);
         return $this->db->count_all_results();
     }
@@ -70,7 +70,7 @@ class User_model extends CI_Model
         $this->db->or_like('images', $q);
         $this->db->or_like('id_user_level', $q);
         $this->db->or_like('is_aktif', $q);
-        $this->db->or_like('id_karyawan', $q);
+        // $this->db->or_like('id_karyawan', $q);
         $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }

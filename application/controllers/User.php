@@ -38,7 +38,7 @@ class User extends CI_Controller
             'images'        => set_value('images'),
             'id_user_level' => set_value('id_user_level'),
             'is_aktif'      => set_value('is_aktif'),
-            'id_karyawan'   => set_value('id_karyawan'),
+            //'id_karyawan'   => set_value('id_karyawan'),
         );
         $this->template->load('template', 'user/tbl_user_form', $data);
     }
@@ -56,13 +56,14 @@ class User extends CI_Controller
             $hashPassword   = password_hash($password, PASSWORD_BCRYPT, $options);
 
             $data = array(
+                'id_users'      => $this->input->post('id_karyawan', TRUE),
                 'full_name'     => $this->input->post('full_name', TRUE),
                 'email'         => $this->input->post('email', TRUE),
                 'password'      => $hashPassword,
                 'images'        => $foto['file_name'],
                 'id_user_level' => $this->input->post('id_user_level', TRUE),
                 'is_aktif'      => $this->input->post('is_aktif', TRUE),
-                'id_karyawan'   => $this->input->post('id_karyawan', TRUE),
+                //'id_karyawan'   => $this->input->post('id_karyawan', TRUE),
             );
 
             $this->User_model->insert($data);
@@ -86,7 +87,7 @@ class User extends CI_Controller
                 'images'        => set_value('images', $row->images),
                 'id_user_level' => set_value('id_user_level', $row->id_user_level),
                 'is_aktif'      => set_value('is_aktif', $row->is_aktif),
-                'id_karyawan'   => set_value('id_karyawan', $row->id_karyawan),
+                //'id_karyawan'   => set_value('id_karyawan', $row->id_karyawan),
             );
             $this->template->load('template', 'user/tbl_user_form', $data);
         } else {
@@ -116,7 +117,7 @@ class User extends CI_Controller
                     'images'        => $foto['file_name'],
                     'id_user_level' => $this->input->post('id_user_level', TRUE),
                     'is_aktif'      => $this->input->post('is_aktif', TRUE),
-                    'id_karyawan'   => $this->input->post('id_karyawan', TRUE)
+                    //'id_karyawan'   => $this->input->post('id_karyawan', TRUE)
                 );
 
                 // ubah foto profil yang aktif
@@ -192,26 +193,26 @@ class User extends CI_Controller
 
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
+        xlsWriteLabel($tablehead, $kolomhead++, "ID");
         xlsWriteLabel($tablehead, $kolomhead++, "Username");
         xlsWriteLabel($tablehead, $kolomhead++, "Email");
         xlsWriteLabel($tablehead, $kolomhead++, "Password");
         xlsWriteLabel($tablehead, $kolomhead++, "Images");
         xlsWriteLabel($tablehead, $kolomhead++, "Id User Level");
         xlsWriteLabel($tablehead, $kolomhead++, "Is Aktif");
-        xlsWriteLabel($tablehead, $kolomhead++, "ID Karyawan");
 
         foreach ($this->User_model->get_all() as $data) {
             $kolombody = 0;
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
+            xlsWriteLabel($tablebody, $kolombody++, $data->id_users);
             xlsWriteLabel($tablebody, $kolombody++, $data->full_name);
             xlsWriteLabel($tablebody, $kolombody++, $data->email);
             xlsWriteLabel($tablebody, $kolombody++, $data->password);
             xlsWriteLabel($tablebody, $kolombody++, $data->images);
             xlsWriteNumber($tablebody, $kolombody++, $data->id_user_level);
             xlsWriteLabel($tablebody, $kolombody++, $data->is_aktif);
-            xlsWriteLabel($tablebody, $kolombody++, $data->id_karyawan);
 
             $tablebody++;
             $nourut++;

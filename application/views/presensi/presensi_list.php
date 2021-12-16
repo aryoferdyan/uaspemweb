@@ -9,87 +9,82 @@
                     </div>
         
         <div class="box-body">
-            <div class='row'>
-            <div class='col-md-9'>
-            <div style="padding-bottom: 10px;"'>
-        <?php echo anchor(site_url('presensi/create'), '<i class="fa fa-wpforms" aria-hidden="true"></i> Tambah Data', 'class="btn btn-danger btn-sm"'); ?></div>
-            </div>
-            <div class='col-md-3'>
-            <form action="<?php echo site_url('presensi/index'); ?>" class="form-inline" method="get">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="q" value="<?php echo $q; ?>">
-                        <span class="input-group-btn">
-                            <?php 
-                                if ($q <> '')
-                                {
-                                    ?>
-                                    <a href="<?php echo site_url('presensi'); ?>" class="btn btn-default">Reset</a>
-                                    <?php
-                                }
-                            ?>
-                          <button class="btn btn-primary" type="submit">Search</button>
-                        </span>
-                    </div>
-                </form>
-            </div>
-            </div>
-        
-   
-        <div class="row" style="margin-bottom: 10px">
-            <div class="col-md-4 text-center">
-                <div style="margin-top: 8px" id="message">
-                    <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
-                </div>
-            </div>
-            <div class="col-md-1 text-right">
-            </div>
-            <div class="col-md-3 text-right">
-                
-            </div>
-        </div>
-        <table class="table table-bordered" style="margin-bottom: 10px">
-            <tr>
-                <th>No</th>
-		<th>Id Karyawan</th>
-		<th>Tanggal</th>
-		<th>Waktu Masuk</th>
-		<th>Waktu Keluar</th>
-		<th>Action</th>
-            </tr><?php
-            foreach ($presensi_data as $presensi)
-            {
-                ?>
+        <div style="padding-bottom: 10px;"'>
+        <?php echo anchor(site_url('presensi/create'), '<i class="fa fa-wpforms" aria-hidden="true"></i> Tambah Data', 'class="btn btn-success btn-sm"'); ?>
+        <?php echo anchor(site_url('presensi/create'), '<i class="fa fa-wpforms" aria-hidden="true"></i> Tambah Data', 'class="btn btn-primary btn-sm"'); ?></div>
+        <table class="table table-bordered table-striped" id="mytable">
+            <thead>
                 <tr>
-			<td width="10px"><?php echo ++$start ?></td>
-			<td><?php echo $presensi->id_karyawan ?></td>
-			<td><?php echo $presensi->tanggal ?></td>
-			<td><?php echo $presensi->waktu_masuk ?></td>
-			<td><?php echo $presensi->waktu_keluar ?></td>
-			<td style="text-align:center" width="200px">
-				<?php 
-				echo anchor(site_url('presensi/read/'.$presensi->id_presensi),'<i class="fa fa-eye" aria-hidden="true"></i>','class="btn btn-danger btn-sm"'); 
-				echo '  '; 
-				echo anchor(site_url('presensi/update/'.$presensi->id_presensi),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm"'); 
-				echo '  '; 
-				echo anchor(site_url('presensi/delete/'.$presensi->id_presensi),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
-				?>
-			</td>
-		</tr>
-                <?php
-            }
-            ?>
+                    <th width="30px">No</th>
+		    <th>Id Karyawan</th>
+		    <th>Tanggal</th>
+		    <th>Waktu Masuk</th>
+		    <th>Waktu Keluar</th>
+		    <th width="200px">Action</th>
+                </tr>
+            </thead>
+	    
         </table>
-        <div class="row">
-            <div class="col-md-6">
-                
-	    </div>
-            <div class="col-md-6 text-right">
-                <?php echo $pagination ?>
-            </div>
-        </div>
         </div>
                     </div>
             </div>
             </div>
     </section>
 </div>
+        <script src="<?php echo base_url('assets/js/jquery-1.11.2.min.js') ?>"></script>
+        <script src="<?php echo base_url('assets/datatables/jquery.dataTables.js') ?>"></script>
+        <script src="<?php echo base_url('assets/datatables/dataTables.bootstrap.js') ?>"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
+                {
+                    return {
+                        "iStart": oSettings._iDisplayStart,
+                        "iEnd": oSettings.fnDisplayEnd(),
+                        "iLength": oSettings._iDisplayLength,
+                        "iTotal": oSettings.fnRecordsTotal(),
+                        "iFilteredTotal": oSettings.fnRecordsDisplay(),
+                        "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
+                        "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
+                    };
+                };
+
+                var t = $("#mytable").dataTable({
+                    initComplete: function() {
+                        var api = this.api();
+                        $('#mytable_filter input')
+                                .off('.DT')
+                                .on('keyup.DT', function(e) {
+                                    if (e.keyCode == 13) {
+                                        api.search(this.value).draw();
+                            }
+                        });
+                    },
+                    oLanguage: {
+                        sProcessing: "loading..."
+                    },
+                    processing: true,
+                    serverSide: true,
+                    ajax: {"url": "presensi/json", "type": "POST"},
+                    columns: [
+                        {
+                            "data": "id_presensi",
+                            "orderable": false
+                        },{"data": "id_karyawan"},{"data": "tanggal"},{"data": "waktu_masuk"},{"data": "waktu_keluar"},
+                        {
+                            "data" : "action",
+                            "orderable": false,
+                            "className" : "text-center"
+                        }
+                    ],
+                    order: [[0, 'desc']],
+                    rowCallback: function(row, data, iDisplayIndex) {
+                        var info = this.fnPagingInfo();
+                        var page = info.iPage;
+                        var length = info.iLength;
+                        var index = page * length + (iDisplayIndex + 1);
+                        $('td:eq(0)', row).html(index);
+                    }
+                });
+            });
+        </script>
