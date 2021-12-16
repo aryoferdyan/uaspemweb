@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Des 2021 pada 11.07
+-- Waktu pembuatan: 16 Des 2021 pada 15.42
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.3.10
 
@@ -126,7 +126,10 @@ INSERT INTO `karyawan` (`id_karyawan`, `nama`, `sex`, `address`, `place`, `date`
 (100, 'Adit Rahman Saleh', 1, 'Rengasdengklok', 'Solo', '2000-12-14', 1, 9250000, '4'),
 (101, 'Konto Legowo', 1, 'Jl. Kenangan Mantan 44', 'Jakarta', '1995-02-04', 4, 5000000, '2'),
 (102, 'Dita Kerang', 0, 'Jl. Koral No.1', 'Jakarta', '2001-07-04', 4, 5000000, '3'),
-(103, 'Andik Fermansyah', 1, 'Jl. Kenangan Mantan 44', 'Jakarta', '1994-02-02', 1, 5000000, '4');
+(103, 'Andik Fermansyah', 1, 'Jl. Kenangan Mantan 44', 'Jakarta', '1994-02-02', 1, 5000000, '4'),
+(104, 'Amanda Manganopo', 0, 'Jl. Kabuto No 212, Jakarta Barat', 'Jakarta', '1994-08-23', 2, 5000000, '6'),
+(105, 'Ahmad Sobari', 1, 'Jl. Kenangan Mantan 44', 'Jakarta', '1977-12-03', 4, 12000000, '4'),
+(106, 'Zulfikli Sukur', 1, 'Jl. Kenangan Mantan 44', 'Jakarta', '1988-11-04', 1, 2010000, '7');
 
 -- --------------------------------------------------------
 
@@ -184,9 +187,9 @@ INSERT INTO `karyawan_jabatan` (`id_jabatan`, `jabatan`, `tunjangan`) VALUES
 CREATE TABLE `presensi` (
   `id_presensi` int(11) NOT NULL,
   `id_karyawan` int(11) NOT NULL,
-  `tanggal` timestamp NOT NULL DEFAULT current_timestamp(),
-  `waktu_masuk` timestamp NOT NULL DEFAULT current_timestamp(),
-  `waktu_keluar` timestamp NOT NULL DEFAULT current_timestamp()
+  `tanggal` date NOT NULL,
+  `waktu_masuk` time NOT NULL,
+  `waktu_keluar` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -194,8 +197,7 @@ CREATE TABLE `presensi` (
 --
 
 INSERT INTO `presensi` (`id_presensi`, `id_karyawan`, `tanggal`, `waktu_masuk`, `waktu_keluar`) VALUES
-(4, 99, '2021-12-11 07:27:21', '2021-12-11 07:27:21', '2021-12-11 07:27:21'),
-(6, 99, '2021-12-11 07:29:58', '2021-12-11 07:29:58', '2021-12-11 07:31:57');
+(1, 99, '2021-12-16', '08:00:00', '00:00:00');
 
 -- --------------------------------------------------------
 
@@ -231,7 +233,6 @@ INSERT INTO `tbl_hak_akses` (`id`, `id_user_level`, `id_menu`) VALUES
 (41, 0, 10),
 (51, 0, 1),
 (52, 0, 15),
-(53, 1, 15),
 (54, 1, 12),
 (55, 1, 11),
 (56, 1, 13),
@@ -240,7 +241,17 @@ INSERT INTO `tbl_hak_akses` (`id`, `id_user_level`, `id_menu`) VALUES
 (60, 3, 14),
 (61, 3, 13),
 (62, 3, 12),
-(63, 3, 19);
+(63, 3, 19),
+(64, 1, 15),
+(65, 4, 10),
+(66, 4, 11),
+(67, 4, 12),
+(68, 4, 13),
+(69, 4, 14),
+(70, 4, 15),
+(71, 4, 16),
+(72, 4, 17),
+(73, 4, 19);
 
 -- --------------------------------------------------------
 
@@ -309,19 +320,22 @@ CREATE TABLE `tbl_user` (
   `password` varchar(255) NOT NULL,
   `images` text NOT NULL,
   `id_user_level` int(11) NOT NULL,
-  `is_aktif` enum('y','n') NOT NULL,
-  `id_karyawan` int(11) NOT NULL
+  `is_aktif` enum('y','n') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `tbl_user`
 --
 
-INSERT INTO `tbl_user` (`id_users`, `full_name`, `email`, `password`, `images`, `id_user_level`, `is_aktif`, `id_karyawan`) VALUES
-(1, 'Hafid Surya Pradana', 'hafid@gmail.com', '$2y$04$Wbyfv4xwihb..POfhxY5Y.jHOJqEFIG3dLfBYwAmnOACpH0EWCCdq', 'IMG_5474.jpg', 1, 'y', 1),
-(99, 'Ferdyan Aryo Noviyanto', 'aryoferdyan@gmail.com', '$2y$04$9RQ6ktJdmvcHI2ppQSZRoe5vN7zH2SY6IZ8y3amHywF93YQrO4yr2', 'atomix_user31.png', 1, 'y', 99),
-(101, 'Konto Legowo', 'legowo@gmail.com', '$2y$04$9RQ6ktJdmvcHI2ppQSZRoe5vN7zH2SY6IZ8y3amHywF93YQrO4yr2', '', 3, 'y', 101),
-(102, 'Adit Rahman Saleh', 'adit@pertamini.com', '$2y$04$HBXkJgTE3GlulMfYQHDF.eTJnmDSh3NyaPyH.ATi2HpPo40od1V5q', '', 3, 'y', 0);
+INSERT INTO `tbl_user` (`id_users`, `full_name`, `email`, `password`, `images`, `id_user_level`, `is_aktif`) VALUES
+(1, 'hafid', 'hafid@gmail.com', '$2y$04$Wbyfv4xwihb..POfhxY5Y.jHOJqEFIG3dLfBYwAmnOACpH0EWCCdq', 'IMG_5474.jpg', 1, 'y'),
+(99, 'ferdyan', 'aryoferdyan@gmail.com', '$2y$04$9RQ6ktJdmvcHI2ppQSZRoe5vN7zH2SY6IZ8y3amHywF93YQrO4yr2', 'atomix_user31.png', 1, 'y'),
+(100, 'adit', 'adit@pertamini.com', '$2y$04$YjlpJsVCxVc0yNuADszPVOlie80axMoDeCRikG.uZOsZNaMSi2DYi', '', 4, 'y'),
+(101, 'lgw', 'legowo@pertamini.com', '$2y$04$bedcXFujzIvoDKJ7l1B61e9NtQKavlzVv0j0lgIcssvtJ2IloaXn2', '', 3, 'y'),
+(102, 'ditaa', 'dita@pertamini.com', '$2y$04$WZexHA4JYLeRn232K6vcCeL118FybTuPYiMyS8WN6P5WL059MA.4e', '', 3, 'y'),
+(103, 'andik', 'andik@pertamini.com', '$2y$04$At9/XTFi/ZD6A1zCR0zPTelrFvW6WbbC4TRusla88/7frQK0mxwG6', '', 3, 'y'),
+(104, 'amanda', 'amandamanganopo@pertamini.com', '$2y$04$1vCL8lmTvsifpuyj/pS0j.U7HZjjFfHsuvBPmsIzbd3ID70Vu6aqi', '', 3, 'y'),
+(105, 'ahmad', 'ahmadsobari@pertamini.com', '$2y$04$TbLfx0UpAczfKdOMBbH.V.IkioRxIO8DeIz6DZkbtgezEozj2bkpm', '', 3, 'y');
 
 -- --------------------------------------------------------
 
@@ -341,7 +355,8 @@ CREATE TABLE `tbl_user_level` (
 INSERT INTO `tbl_user_level` (`id_user_level`, `nama_level`) VALUES
 (1, 'Super Admin'),
 (2, 'Admin'),
-(3, 'User');
+(3, 'User'),
+(4, 'HRD');
 
 --
 -- Indexes for dumped tables
@@ -445,7 +460,7 @@ ALTER TABLE `jurnal`
 -- AUTO_INCREMENT untuk tabel `karyawan`
 --
 ALTER TABLE `karyawan`
-  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT untuk tabel `karyawan_jabatan`
@@ -457,13 +472,13 @@ ALTER TABLE `karyawan_jabatan`
 -- AUTO_INCREMENT untuk tabel `presensi`
 --
 ALTER TABLE `presensi`
-  MODIFY `id_presensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_presensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_hak_akses`
 --
 ALTER TABLE `tbl_hak_akses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_menu`
@@ -478,16 +493,10 @@ ALTER TABLE `tbl_setting`
   MODIFY `id_setting` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_user`
---
-ALTER TABLE `tbl_user`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
-
---
 -- AUTO_INCREMENT untuk tabel `tbl_user_level`
 --
 ALTER TABLE `tbl_user_level`
-  MODIFY `id_user_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
