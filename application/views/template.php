@@ -101,10 +101,21 @@
             <!-- sidebar: style can be found in sidebar.less -->
             <?php $this->load->view('template/sidebar'); ?>
         </aside>
-
+        <?php 
+            $x = $this->session->flashdata('message');
+            if (isset($x)){
+                echo "
+                <div class='flashdata'>
+                    ".alert('alert-info', $x,'')."
+                </div>
+                ";
+            }
+        ?>
         <?php
         echo $contents;
         ?>
+
+
 
 
         <!-- /.content-wrapper -->

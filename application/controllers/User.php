@@ -66,10 +66,17 @@ class User extends CI_Controller
                 //'id_karyawan'   => $this->input->post('id_karyawan', TRUE),
             );
 
-            $this->User_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('user'));
+            $id = $this->input->post('id_karyawan', TRUE);
+            if ($this->User_model->get_by_id($id) == ''){
+                $this->User_model->insert($data);
+                $this->session->set_flashdata('message', 'Create Record Success');
+                redirect(site_url('user'));
+            } else {
+                $this->session->set_flashdata('message', 'Create Record Aborted');
+                redirect('user/create');
+            }
         }
+
     }
 
     public function update($id)
@@ -161,11 +168,11 @@ class User extends CI_Controller
     {
         $this->form_validation->set_rules('full_name', 'full name', 'trim|required');
         $this->form_validation->set_rules('email', 'email', 'trim|required');
-        //$this->form_validation->set_rules('password', 'password', 'trim|required');
+        // $this->form_validation->set_rules('password', 'password', 'trim|required');
         //$this->form_validation->set_rules('images', 'images', 'trim|required');
         $this->form_validation->set_rules('id_user_level', 'id user level', 'trim|required');
         $this->form_validation->set_rules('is_aktif', 'is aktif', 'trim|required');
-        $this->form_validation->set_rules('is_aktif', 'is aktif', 'trim|required');
+        // $this->form_validation->set_rules('is_aktif', 'is aktif', 'trim|required');
 
         $this->form_validation->set_rules('id_users', 'id_users', 'trim');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
