@@ -11,7 +11,7 @@ class Gaji extends CI_Controller
         is_login();
        // $this->load->model('Karyawan_model');
         $this->load->library('form_validation');        
-	//$this->load->library('datatables');
+	    //$this->load->library('datatables');
     }
 
     public function index()
