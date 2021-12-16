@@ -16,16 +16,17 @@ class Karyawan_model extends CI_Model
     }
 
     // datatables
-    function json() {
+    function json()
+    {
         $this->datatables->select('id_karyawan,nama,sex,address,place,date,jabatan,salary,devisi');
         $this->datatables->from('karyawan');
         //add this line for join
         //$this->datatables->join('table2', 'karyawan.field = table2.field');
         $this->datatables->join('karyawan_jabatan', 'karyawan.id_jabatan = karyawan_jabatan.id_jabatan');
         $this->datatables->join('karyawan_devisi', 'karyawan.id_devisi = karyawan_devisi.id_devisi');
-        $this->datatables->add_column('action'," 
-            ".anchor(site_url('karyawan/update/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
-                ".anchor(site_url('karyawan/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_karyawan');
+        $this->datatables->add_column('action', " 
+            " . anchor(site_url('karyawan/update/$1'), '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')) . " 
+                " . anchor(site_url('karyawan/delete/$1'), '<i class="fa fa-trash-o" aria-hidden="true"></i>', 'class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_karyawan');
         return $this->datatables->generate();
     }
 
@@ -42,35 +43,37 @@ class Karyawan_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+
     // get total rows
-    function total_rows($q = NULL) {
+    function total_rows($q = NULL)
+    {
         $this->db->like('id_karyawan', $q);
-	$this->db->or_like('nama', $q);
-	$this->db->or_like('sex', $q);
-	$this->db->or_like('address', $q);
-	$this->db->or_like('place', $q);
-	$this->db->or_like('date', $q);
-	$this->db->or_like('jabatan', $q);
-	$this->db->or_like('salary', $q);
-	$this->db->or_like('devisi', $q);
-	$this->db->from($this->table);
+        $this->db->or_like('nama', $q);
+        $this->db->or_like('sex', $q);
+        $this->db->or_like('address', $q);
+        $this->db->or_like('place', $q);
+        $this->db->or_like('date', $q);
+        $this->db->or_like('jabatan', $q);
+        $this->db->or_like('salary', $q);
+        $this->db->or_like('devisi', $q);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id_karyawan', $q);
-	$this->db->or_like('nama', $q);
-	$this->db->or_like('sex', $q);
-	$this->db->or_like('address', $q);
-	$this->db->or_like('place', $q);
-	$this->db->or_like('date', $q);
-	$this->db->or_like('jabatan', $q);
-	$this->db->or_like('salary', $q);
-	$this->db->or_like('devisi', $q);
-	$this->db->limit($limit, $start);
+        $this->db->or_like('nama', $q);
+        $this->db->or_like('sex', $q);
+        $this->db->or_like('address', $q);
+        $this->db->or_like('place', $q);
+        $this->db->or_like('date', $q);
+        $this->db->or_like('jabatan', $q);
+        $this->db->or_like('salary', $q);
+        $this->db->or_like('devisi', $q);
+        $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
 
@@ -93,7 +96,6 @@ class Karyawan_model extends CI_Model
         $this->db->where($this->id, $id);
         $this->db->delete($this->table);
     }
-
 }
 
 /* End of file Karyawan_model.php */

@@ -49,7 +49,7 @@
             <!--<form action="<?php echo base_url(); ?>/adminlte/index2.html" method="post">-->
             <?php echo form_open('auth/cheklogin'); ?>
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" name="email" placeholder="Email">
+                <input type="text" class="form-control" name="email" placeholder="Username/Email">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
@@ -71,7 +71,7 @@
             <div class="row" style="margin-top: 20px;">
                 <div class="col-xs-12">
                     <div class="callout callout-info">
-                        <p><b>Email</b> : aryoferdyan@gmail.com</p>
+                        <p><b>Email</b> : ferdyan</p>
                         <p><b>Password</b> : qwerty</p>
                     </div>
                 </div>

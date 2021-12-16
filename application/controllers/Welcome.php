@@ -1,25 +1,30 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Welcome extends CI_Controller
+{
 
 
-    public function index() {
+    public function index()
+    {
         //$this->load->view('table');
         $this->template->load('template', 'welcome');
     }
 
-    public function form() {
+    public function form()
+    {
         //$this->load->view('table');
         $this->template->load('template', 'form');
     }
-    
-    function autocomplate(){
+
+    function autocomplate()
+    {
         autocomplate_json('tbl_user', 'full_name');
     }
 
-    function __autocomplate() {
+    function __autocomplate()
+    {
         $this->db->like('nama_lengkap', $_GET['term']);
         $this->db->select('nama_lengkap');
         $products = $this->db->get('pegawai')->result();
@@ -30,7 +35,8 @@ class Welcome extends CI_Controller {
         echo json_encode($return_arr);
     }
 
-    function pdf() {
+    function pdf()
+    {
         $this->load->library('pdf');
         $pdf = new FPDF('l', 'mm', 'A5');
         // membuat halaman baru
@@ -43,5 +49,4 @@ class Welcome extends CI_Controller {
         $pdf->Cell(190, 7, 'DAFTAR SISWA KELAS IX JURUSAN REKAYASA PERANGKAT LUNAK', 0, 1, 'C');
         $pdf->Output();
     }
-
 }

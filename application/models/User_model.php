@@ -12,7 +12,7 @@ class User_model extends CI_Model
 
     function __construct()
     {
-        parent::__construct(); 
+        parent::__construct();
     }
 
     // datatables
@@ -35,6 +35,7 @@ class User_model extends CI_Model
         $this->db->order_by($this->id, $this->order);
         return $this->db->get($this->table)->result();
     }
+
 
     // get data by id
     function get_by_id($id)
