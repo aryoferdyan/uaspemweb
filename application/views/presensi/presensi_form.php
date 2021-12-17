@@ -8,44 +8,44 @@
 
 				<table class='table table-bordered'>
 
-					<tr>
-						<td width='200'>Id Karyawan <?php echo form_error('id_karyawan') ?></td>
-						<td><input readonly type="text" class="form-control" name="id_karyawan" id="id_karyawan"
-								placeholder="Id Karyawan" value="<?php echo  $_SESSION['id_users'] ?>" /></td>
-					</tr>
+
+					<!-- <td width='200'>ID Presensi <?php echo form_error('id_presensi') ?></td> -->
+					<input readonly type="hidden" class="form-control" name="id_presensi" id="id_presensi" placeholder="ID Presensi" value="<?php echo $_SESSION['id_users'] . '-' . date('Y-m-d') ?>" />
 
 					<tr>
-						<td width='200'>Tanggal <?php echo form_error('tanggal') ?></td>
-						<td><input readonly type="text" class="form-control" name="tanggal" id="tanggal" placeholder="dd/mm/yyyy"
-								value="<?php if($tanggal == ''){
-												echo date("Y-m-d");}
-											 else {
-												echo $tanggal;} ?>" /></td>
+						<td width='200'>Tanggal <?php echo form_error('id_presensi')  ?></td>
+						<td><input readonly type="text" class="form-control" name="tanggal" id="tanggal" placeholder="dd/mm/yyyy" value="<?php if ($tanggal == '') {
+																																				echo date("Y-m-d");
+																																			} else {
+																																				echo $tanggal;
+																																			} ?>" /></td>
 					</tr>
 
 					<tr>
 						<td width='200'>Waktu Masuk <?php echo form_error('waktu_masuk') ?></td>
-						<td><input type="text" class="form-control" name="waktu_masuk" id="waktu_masuk"
-								placeholder="Waktu Masuk" value="<?php  if($tanggal == ''){
-																			echo date('H:i:s', strtotime('+6 hour'));}
-																		else {
-																			echo $waktu_masuk;} ?>" /></td>
+						<td><input readonly type="text" class="form-control" name="waktu_masuk" id="waktu_masuk" placeholder="Waktu Masuk" value="<?php if ($tanggal == '') {
+																																						echo date('H:i:s', strtotime('+6 hour'));
+																																					} else {
+																																						echo $waktu_masuk;
+																																					} ?>" /></td>
 					</tr>
 
 					<tr>
 						<td width='200'>Waktu Keluar <?php echo form_error('waktu_keluar') ?></td>
-						<td><input type="text" class="form-control" name="waktu_keluar" id="waktu_keluar"
-								placeholder="Waktu Keluar" value="<?php echo $waktu_keluar; ?>" /></td>
+						<td><input readonly type="text" class="form-control" name="waktu_keluar" id="waktu_keluar" placeholder="Waktu Keluar" value="<?php if ($waktu_keluar == '00:00:00') {
+																																						echo date('H:i:s', strtotime('+6 hour'));
+																																					} else {
+																																						echo $waktu_keluar;
+																																					} ?>" /></td>
 					</tr>
 
 					<tr>
 						<td></td>
 						<td>
-							<input type="hidden" name="id_presensi" value="<?php echo $id_presensi; ?>" />
+							<input type="hidden" name="id_karyawan" id="id_karyawan" value="<?php echo  $_SESSION['id_users'] ?>" />
 							<button type="submit" class="btn btn-danger"><i class="fa fa-floppy-o"></i>
 								<?php echo $button ?></button>
-							<a href="<?php echo site_url('presensi') ?>" class="btn btn-info"><i
-									class="fa fa-sign-out"></i> Kembali</a>
+							<a href="<?php echo site_url('presensi') ?>" class="btn btn-info"><i class="fa fa-sign-out"></i> Kembali</a>
 						</td>
 					</tr>
 

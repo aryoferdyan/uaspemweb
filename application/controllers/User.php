@@ -166,8 +166,12 @@ class User extends CI_Controller
 
     public function _rules()
     {
-        $this->form_validation->set_rules('full_name', 'full name', 'trim|required');
-        $this->form_validation->set_rules('email', 'email', 'trim|required');
+        // $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[TABLENAME.COLUMNNAME]');
+        $this->form_validation->set_rules('id_karyawan', 'id_karyawan', 'trim|required|is_unique[tbl_user.id_users]');
+        // array('is_unique' => 'Karyawan sudah ditambahkan'));
+        $this->form_validation->set_rules('full_name', 'full name', 'trim|required|is_unique[tbl_user.full_name]');
+        // array('is_unique' => 'username sudah digunakan'));
+        $this->form_validation->set_rules('email', 'email', 'trim|required|is_unique[tbl_user.email]');
         // $this->form_validation->set_rules('password', 'password', 'trim|required');
         //$this->form_validation->set_rules('images', 'images', 'trim|required');
         $this->form_validation->set_rules('id_user_level', 'id user level', 'trim|required');

@@ -16,21 +16,33 @@ class Presensi_model extends CI_Model
     }
 
     // datatables
-    function json() {
+    function json()
+    {
         $this->datatables->select('id_presensi,id_karyawan,tanggal,waktu_masuk,waktu_keluar');
         $this->datatables->from('presensi');
+        $this->datatables->where('id_karyawan',$_SESSION['id_users']);
         //add this line for join
         //$this->datatables->join('table2', 'presensi.field = table2.field');
-        $this->datatables->add_column('action', anchor(site_url('presensi/read/$1'),'<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
-            ".anchor(site_url('presensi/update/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
-                ".anchor(site_url('presensi/delete/$1'),'<i class="fa fa-trash-o" aria-hidden="true"></i>','class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_presensi');
+        $this->datatables->add_column('action', anchor(site_url('presensi/read/$1'), '<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-info btn-sm')) . " 
+            " . anchor(site_url('presensi'), '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-success btn-sm')) . " 
+                " , 'id_presensi');
         return $this->datatables->generate();
     }
+
+    // function get_presensi2()
+    // {
+    //     $x = date("Y-m-d");
+    //     $y = $_SESSION['id_users'];
+    //     $this->db->where(array('tanggal' => $x, 'id_karyawan' => $y));
+    //     return $this->db->get($this->table)->row();
+    // }
 
     // get all
     function get_all()
     {
-        $this->db->order_by($this->id, $this->order);
+        $this->db->where('id_karyawan',$_SESSION['id_users'])
+                ->order_by($this->id, $this->order);
+                    
         return $this->db->get($this->table)->result();
     }
 
@@ -40,27 +52,29 @@ class Presensi_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+
     // get total rows
-    function total_rows($q = NULL) {
+    function total_rows($q = NULL)
+    {
         $this->db->like('id_presensi', $q);
-	$this->db->or_like('id_karyawan', $q);
-	$this->db->or_like('tanggal', $q);
-	$this->db->or_like('waktu_masuk', $q);
-	$this->db->or_like('waktu_keluar', $q);
-	$this->db->from($this->table);
+        $this->db->or_like('id_karyawan', $q);
+        $this->db->or_like('tanggal', $q);
+        $this->db->or_like('waktu_masuk', $q);
+        $this->db->or_like('waktu_keluar', $q);
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id_presensi', $q);
-	$this->db->or_like('id_karyawan', $q);
-	$this->db->or_like('tanggal', $q);
-	$this->db->or_like('waktu_masuk', $q);
-	$this->db->or_like('waktu_keluar', $q);
-	$this->db->limit($limit, $start);
+        $this->db->or_like('id_karyawan', $q);
+        $this->db->or_like('tanggal', $q);
+        $this->db->or_like('waktu_masuk', $q);
+        $this->db->or_like('waktu_keluar', $q);
+        $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
 
@@ -83,7 +97,6 @@ class Presensi_model extends CI_Model
         $this->db->where($this->id, $id);
         $this->db->delete($this->table);
     }
-
 }
 
 /* End of file Presensi_model.php */
