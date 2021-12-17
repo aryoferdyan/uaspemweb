@@ -20,12 +20,11 @@ class Presensi_model extends CI_Model
     {
         $this->datatables->select('id_presensi,id_karyawan,tanggal,waktu_masuk,waktu_keluar');
         $this->datatables->from('presensi');
-        $this->datatables->where('id_karyawan',$_SESSION['id_users']);
         //add this line for join
         //$this->datatables->join('table2', 'presensi.field = table2.field');
-        $this->datatables->add_column('action', anchor(site_url('presensi/read/$1'), '<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-info btn-sm')) . " 
-            " . anchor(site_url('presensi'), '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-success btn-sm')) . " 
-                " , 'id_presensi');
+        $this->datatables->add_column('action', anchor(site_url('presensi/read/$1'), '<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')) . " 
+            " . anchor(site_url('presensi/update/$1'), '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')) . " 
+                " . anchor(site_url('presensi/delete/$1'), '<i class="fa fa-trash-o" aria-hidden="true"></i>', 'class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_presensi');
         return $this->datatables->generate();
     }
 
@@ -40,9 +39,7 @@ class Presensi_model extends CI_Model
     // get all
     function get_all()
     {
-        $this->db->where('id_karyawan',$_SESSION['id_users'])
-                ->order_by($this->id, $this->order);
-                    
+        $this->db->order_by($this->id, $this->order);
         return $this->db->get($this->table)->result();
     }
 

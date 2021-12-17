@@ -77,11 +77,8 @@
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
-                                    <div class="pull-left">
-                                        <?php echo anchor('user/profile', 'Profile', array('class' => 'btn btn-default btn-flat')); ?>
-                                        <!--<a href="#" class="btn btn-default btn-flat">Profile</a>-->
-                                    </div>
-                                    <div class="pull-right">
+                                    
+                                    <div class="pull-center">
                                         <?php echo anchor('auth/logout', 'Logout', array('class' => 'btn btn-default btn-flat')); ?>
                                         <!--<a href="#" class="btn btn-default btn-flat">Sign out</a>-->
                                     </div>
@@ -101,6 +98,8 @@
             <!-- sidebar: style can be found in sidebar.less -->
             <?php $this->load->view('template/sidebar'); ?>
         </aside>
+
+<?php var_dump($_SESSION); ?>
 
         <?php
         echo $contents;

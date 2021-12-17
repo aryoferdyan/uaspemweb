@@ -18,12 +18,7 @@ class Presensi extends CI_Controller
     {
 
         $this->template->load('template', 'presensi/presensi_list');
-        // $row = $this->Presensi_model->get_presensi2();
-        // if ($row){
-        //     $data = array(
-        //         'id_presensi' => $row->id_presensi,
-        //     );
-        // }
+       
     }
 
     public function json()
