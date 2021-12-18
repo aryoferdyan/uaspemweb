@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Des 2021 pada 16.12
+-- Waktu pembuatan: 18 Des 2021 pada 15.55
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.3.10
 
@@ -54,7 +54,6 @@ CREATE TABLE `cuti` (
   `tanggal1` date NOT NULL,
   `tanggal2` date NOT NULL,
   `id_jenis` int(2) NOT NULL,
-  `status` tinyint(1) NOT NULL,
   `validasi` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -62,8 +61,16 @@ CREATE TABLE `cuti` (
 -- Dumping data untuk tabel `cuti`
 --
 
-INSERT INTO `cuti` (`id_cuti`, `id_karyawan`, `tanggal1`, `tanggal2`, `id_jenis`, `status`, `validasi`) VALUES
-(1, 99, '2021-12-12', '2021-12-14', 2, 1, 1);
+INSERT INTO `cuti` (`id_cuti`, `id_karyawan`, `tanggal1`, `tanggal2`, `id_jenis`, `validasi`) VALUES
+(1, 99, '2021-12-12', '2021-12-14', 2, 1),
+(2, 99, '2021-12-23', '2021-12-11', 3, 1),
+(3, 99, '2021-12-07', '2021-12-17', 1, 1),
+(4, 99, '2021-12-23', '2021-12-24', 2, 0),
+(5, 99, '2021-12-22', '2021-12-24', 1, 0),
+(6, 99, '2021-12-20', '2021-12-19', 1, 0),
+(7, 99, '2021-12-25', '2021-12-25', 1, 0),
+(8, 99, '2021-12-26', '2021-12-26', 1, 0),
+(9, 99, '2021-12-31', '2021-12-31', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -129,7 +136,8 @@ INSERT INTO `karyawan` (`id_karyawan`, `nama`, `sex`, `address`, `place`, `date`
 (103, 'Andik Fermansyah', 1, 'Jl. Kenangan Mantan 44', 'Jakarta', '1994-02-02', 1, 5000000, '4'),
 (104, 'Amanda Manganopo', 0, 'Jl. Kabuto No 212, Jakarta Barat', 'Jakarta', '1994-08-23', 2, 5000000, '6'),
 (105, 'Ahmad Sobari', 1, 'Jl. Kenangan Mantan 44', 'Jakarta', '1977-12-03', 4, 12000000, '4'),
-(106, 'Zulfikli Sukur', 1, 'Jl. Kenangan Mantan 44', 'Jakarta', '1988-11-04', 1, 2010000, '7');
+(106, 'Zulfikli Sukur', 1, 'Jl. Kenangan Mantan 44', 'Jakarta', '1988-11-04', 1, 2010000, '7'),
+(107, 'Rita Sugiyarti', 0, 'Jl. Kenangan Mantan 44', 'Jakarta', '1970-09-12', 4, 12000000, '6');
 
 -- --------------------------------------------------------
 
@@ -185,7 +193,7 @@ INSERT INTO `karyawan_jabatan` (`id_jabatan`, `jabatan`, `tunjangan`) VALUES
 --
 
 CREATE TABLE `presensi` (
-  `id_presensi` int(11) NOT NULL,
+  `id_presensi` varchar(255) NOT NULL,
   `id_karyawan` int(11) NOT NULL,
   `tanggal` date NOT NULL,
   `waktu_masuk` time NOT NULL,
@@ -197,7 +205,8 @@ CREATE TABLE `presensi` (
 --
 
 INSERT INTO `presensi` (`id_presensi`, `id_karyawan`, `tanggal`, `waktu_masuk`, `waktu_keluar`) VALUES
-(1, 99, '2021-12-16', '08:00:00', '00:00:00');
+('100-2021-12-17', 100, '2021-12-17', '17:07:00', '17:07:09'),
+('99-2021-12-17', 99, '2021-12-17', '15:44:54', '16:51:32');
 
 -- --------------------------------------------------------
 
@@ -251,7 +260,9 @@ INSERT INTO `tbl_hak_akses` (`id`, `id_user_level`, `id_menu`) VALUES
 (70, 4, 15),
 (71, 4, 16),
 (72, 4, 17),
-(73, 4, 19);
+(73, 4, 19),
+(78, 4, 24),
+(79, 1, 24);
 
 -- --------------------------------------------------------
 
@@ -284,9 +295,12 @@ INSERT INTO `tbl_menu` (`id_menu`, `title`, `url`, `icon`, `is_main_menu`, `is_a
 (14, 'Gaji', 'gaji', 'fa', 15, 'y'),
 (15, 'HRD', 'hrd', 'fa fa-users', 0, 'y'),
 (16, 'Infografis', 'infografis', 'fa fa-chart', 15, 'y'),
-(17, 'Daftar Cuti', 'hrdcuti', 'fa', 15, 'y'),
+(17, 'Daftar Cuti', 'cuti_hrd', 'fa', 15, 'y'),
 (19, 'USER', 'presensi', 'fa fa-user', 0, 'y'),
-(20, 'ADMIN', 'menu', 'fa fa-server', 0, 'y');
+(20, 'ADMIN', 'menu', 'fa fa-server', 0, 'y'),
+(21, 'lain-lain', 'lain', 'fa', 20, 'y'),
+(22, 'DEVISI', 'devisi', 'fa', 20, 'y'),
+(24, 'Daftar presensi', 'Presensi_rekap', 'fa', 15, 'y');
 
 -- --------------------------------------------------------
 
@@ -330,12 +344,12 @@ CREATE TABLE `tbl_user` (
 INSERT INTO `tbl_user` (`id_users`, `full_name`, `email`, `password`, `images`, `id_user_level`, `is_aktif`) VALUES
 (1, 'hafid', 'hafid@gmail.com', '$2y$04$Wbyfv4xwihb..POfhxY5Y.jHOJqEFIG3dLfBYwAmnOACpH0EWCCdq', 'IMG_5474.jpg', 1, 'y'),
 (99, 'ferdyan', 'aryoferdyan@gmail.com', '$2y$04$9RQ6ktJdmvcHI2ppQSZRoe5vN7zH2SY6IZ8y3amHywF93YQrO4yr2', 'atomix_user31.png', 1, 'y'),
-(100, 'adit', 'adit@pertamini.com', '$2y$04$YjlpJsVCxVc0yNuADszPVOlie80axMoDeCRikG.uZOsZNaMSi2DYi', '', 4, 'y'),
-(101, 'lgw', 'legowo@pertamini.com', '$2y$04$bedcXFujzIvoDKJ7l1B61e9NtQKavlzVv0j0lgIcssvtJ2IloaXn2', '', 3, 'y'),
-(102, 'ditaa', 'dita@pertamini.com', '$2y$04$WZexHA4JYLeRn232K6vcCeL118FybTuPYiMyS8WN6P5WL059MA.4e', '', 3, 'y'),
-(103, 'andik', 'andik@pertamini.com', '$2y$04$At9/XTFi/ZD6A1zCR0zPTelrFvW6WbbC4TRusla88/7frQK0mxwG6', '', 3, 'y'),
-(104, 'amanda', 'amandamanganopo@pertamini.com', '$2y$04$1vCL8lmTvsifpuyj/pS0j.U7HZjjFfHsuvBPmsIzbd3ID70Vu6aqi', '', 3, 'y'),
-(105, 'ahmad', 'ahmadsobari@pertamini.com', '$2y$04$TbLfx0UpAczfKdOMBbH.V.IkioRxIO8DeIz6DZkbtgezEozj2bkpm', '', 3, 'y');
+(100, 'adit', 'adit@pertamini.com', '$2y$04$YjlpJsVCxVc0yNuADszPVOlie80axMoDeCRikG.uZOsZNaMSi2DYi', 'atomix_user31.png', 4, 'y'),
+(101, 'lgw', 'legowo@pertamini.com', '$2y$04$bedcXFujzIvoDKJ7l1B61e9NtQKavlzVv0j0lgIcssvtJ2IloaXn2', 'atomix_user31.png', 3, 'y'),
+(102, 'ditaa', 'dita@pertamini.com', '$2y$04$WZexHA4JYLeRn232K6vcCeL118FybTuPYiMyS8WN6P5WL059MA.4e', 'atomix_user31.png', 3, 'y'),
+(103, 'andik', 'andik@pertamini.com', '$2y$04$At9/XTFi/ZD6A1zCR0zPTelrFvW6WbbC4TRusla88/7frQK0mxwG6', 'atomix_user31.png', 3, 'y'),
+(104, 'amanda', 'amandamanganopo@pertamini.com', '$2y$04$1vCL8lmTvsifpuyj/pS0j.U7HZjjFfHsuvBPmsIzbd3ID70Vu6aqi', 'atomix_user31.png', 3, 'y'),
+(105, 'ahmad', 'ahmadsobari@pertamini.com', '$2y$04$TbLfx0UpAczfKdOMBbH.V.IkioRxIO8DeIz6DZkbtgezEozj2bkpm', 'atomix_user31.png', 3, 'y');
 
 -- --------------------------------------------------------
 
@@ -442,7 +456,7 @@ ALTER TABLE `tbl_user_level`
 -- AUTO_INCREMENT untuk tabel `cuti`
 --
 ALTER TABLE `cuti`
-  MODIFY `id_cuti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_cuti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `cuti_jenis`
@@ -460,7 +474,7 @@ ALTER TABLE `jurnal`
 -- AUTO_INCREMENT untuk tabel `karyawan`
 --
 ALTER TABLE `karyawan`
-  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT untuk tabel `karyawan_jabatan`
@@ -469,22 +483,16 @@ ALTER TABLE `karyawan_jabatan`
   MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `presensi`
---
-ALTER TABLE `presensi`
-  MODIFY `id_presensi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT untuk tabel `tbl_hak_akses`
 --
 ALTER TABLE `tbl_hak_akses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_menu`
 --
 ALTER TABLE `tbl_menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_setting`
