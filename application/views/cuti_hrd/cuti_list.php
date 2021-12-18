@@ -19,7 +19,6 @@
 		    <th>Tanggal1</th>
 		    <th>Tanggal2</th>
 		    <th>Id Jenis</th>
-		    <th>Status</th>
 		    <th>Validasi</th>
 		    <th width="200px">Action</th>
                 </tr>
@@ -71,7 +70,7 @@
                         {
                             "data": "id_cuti",
                             "orderable": false
-                        },{"data": "id_karyawan"},{"data": "tanggal1"},{"data": "tanggal2"},{"data": "id_jenis"},{"data": "status"},{"data": "validasi"},
+                        },{"data": "id_karyawan"},{"data": "tanggal1"},{"data": "tanggal2"},{"data": "id_jenis"},{"data": "validasi"},
                         {
                             "data" : "action",
                             "orderable": false,

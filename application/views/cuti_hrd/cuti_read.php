@@ -31,11 +31,6 @@
 			</tr>
 	
 			<tr>
-				<td>Status</td>
-				<td><?php echo $status; ?></td>
-			</tr>
-	
-			<tr>
 				<td>Validasi</td>
 				<td><?php echo $validasi; ?></td>
 			</tr>

@@ -27,10 +27,6 @@
 					</tr>
 	
 					<tr>
-						<td width='200'>Status <?php echo form_error('status') ?></td><td><input type="text" class="form-control" name="status" id="status" placeholder="Status" value="<?php echo $status; ?>" /></td>
-					</tr>
-	
-					<tr>
 						<td width='200'>Validasi <?php echo form_error('validasi') ?></td><td><input type="text" class="form-control" name="validasi" id="validasi" placeholder="Validasi" value="<?php echo $validasi; ?>" /></td>
 					</tr>
 	

@@ -30,12 +30,11 @@ class Cuti extends CI_Controller
         $row = $this->Cuti_model->get_by_id($id);
         if ($row) {
             $data = array(
-                'id_cuti' => $row->id_cuti,
                 'id_karyawan' => $row->id_karyawan,
+                'nama' => $row->nama,
                 'tanggal1' => $row->tanggal1,
                 'tanggal2' => $row->tanggal2,
-                'id_jenis' => $row->id_jenis,
-                'status' => $row->status,
+                'jenis' => $row->jenis,
                 'validasi' => $row->validasi,
             );
             $this->template->load('template', 'cuti/cuti_read', $data);
@@ -52,10 +51,10 @@ class Cuti extends CI_Controller
             'action' => site_url('cuti/create_action'),
             'id_cuti' => set_value('id_cuti'),
             'id_karyawan' => set_value('id_karyawan'),
+            // 'nama' => set_value('nama'),
             'tanggal1' => set_value('tanggal1'),
             'tanggal2' => set_value('tanggal2'),
             'id_jenis' => set_value('id_jenis'),
-            'status' => set_value('status'),
             'validasi' => set_value('validasi'),
         );
         $this->template->load('template', 'cuti/cuti_form', $data);
@@ -69,14 +68,13 @@ class Cuti extends CI_Controller
             $this->create();
         } else {
             $data = array(
+                'id_cuti' => $this->input->post('id_cuti', TRUE),
                 'id_karyawan' => $this->input->post('id_karyawan', TRUE),
                 'tanggal1' => $this->input->post('tanggal1', TRUE),
                 'tanggal2' => $this->input->post('tanggal2', TRUE),
                 'id_jenis' => $this->input->post('id_jenis', TRUE),
-                'status' => $this->input->post('status', TRUE),
-                'validasi' => $this->input->post('validasi', TRUE),
+                'validasi' => $this->input->post('validasi', TRUE)
             );
-
             $this->Cuti_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success 2');
             redirect(site_url('cuti'));
@@ -93,13 +91,13 @@ class Cuti extends CI_Controller
                 'action' => site_url('cuti/update_action'),
                 'id_cuti' => set_value('id_cuti', $row->id_cuti),
                 'id_karyawan' => set_value('id_karyawan', $row->id_karyawan),
+                'nama' => set_value('nama', $row->nama),
                 'tanggal1' => set_value('tanggal1', $row->tanggal1),
                 'tanggal2' => set_value('tanggal2', $row->tanggal2),
                 'id_jenis' => set_value('id_jenis', $row->id_jenis),
-                'status' => set_value('status', $row->status),
-                'validasi' => set_value('validasi', $row->validasi),
+                'validasi' => set_value('validasi', $row->validasi)
             );
-            $this->template->load('template', 'cuti/cuti_form', $data);
+            $this->template->load('template', 'cuti/cuti_update', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('cuti'));
@@ -118,7 +116,6 @@ class Cuti extends CI_Controller
                 'tanggal1' => $this->input->post('tanggal1', TRUE),
                 'tanggal2' => $this->input->post('tanggal2', TRUE),
                 'id_jenis' => $this->input->post('id_jenis', TRUE),
-                'status' => $this->input->post('status', TRUE),
                 'validasi' => $this->input->post('validasi', TRUE),
             );
 
@@ -148,7 +145,7 @@ class Cuti extends CI_Controller
         $this->form_validation->set_rules('tanggal1', 'tanggal1', 'trim|required');
         $this->form_validation->set_rules('tanggal2', 'tanggal2', 'trim|required');
         $this->form_validation->set_rules('id_jenis', 'id jenis', 'trim|required');
-        $this->form_validation->set_rules('status', 'status', 'trim|required');
+        // $this->form_validation->set_rules('status', 'status', 'trim|required');
         $this->form_validation->set_rules('validasi', 'validasi', 'trim|required');
 
         $this->form_validation->set_rules('id_cuti', 'id_cuti', 'trim');

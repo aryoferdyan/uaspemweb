@@ -9,6 +9,7 @@ class Cuti_model extends CI_Model
     public $table = 'cuti';
     public $id = 'id_cuti';
     public $order = 'DESC';
+    public $validasi = 'validasi';
 
     function __construct()
     {
@@ -18,12 +19,18 @@ class Cuti_model extends CI_Model
     // datatables
     function json()
     {
-        $this->datatables->select('id_cuti,id_karyawan,tanggal1,tanggal2,id_jenis,status,validasi');
+        $this->datatables->select('cuti.id_cuti,cuti.id_karyawan,karyawan.nama,cuti.tanggal1,cuti.tanggal2,cuti_jenis.jenis,cuti.id_jenis,cuti.validasi');
+        // $this->datatables->where('cuti.id_karyawan', 'karyawan.id_karyawan', FALSE);
+        // $this->datatables->where('cuti.id_karyawan', $_SESSION['id_users']);
+        // $this->datatables->where('cuti.id_jenis', 'cuti_jenis.id_jenis', FALSE);
+        // // $this->datatables->select('id_cuti,id_karyawan,tanggal1,tanggal2,id_jenis,status,validasi');
         $this->datatables->from('cuti');
+        $this->datatables->join('karyawan', 'cuti.id_karyawan = karyawan.id_karyawan');
+        $this->datatables->join('cuti_jenis', 'cuti.id_jenis = cuti_jenis.id_jenis');
         //add this line for join
         //$this->datatables->join('table2', 'cuti.field = table2.field');
-        $this->datatables->add_column('action', anchor(site_url('cuti/read/$1'), '<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')) . " 
-            " . anchor(site_url('cuti/update/$1'), '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')) . " 
+        $this->datatables->add_column('action', anchor(site_url('cuti/read/$1'), '<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-info btn-sm')) . " 
+            " . anchor(site_url('cuti/update/$1'), '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-success btn-sm')) . " 
                 " . anchor(site_url('cuti/delete/$1'), '<i class="fa fa-trash-o" aria-hidden="true"></i>', 'class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_cuti');
         return $this->datatables->generate();
     }
@@ -31,6 +38,7 @@ class Cuti_model extends CI_Model
     // get all
     function get_all()
     {
+        // $this->db->order_by('cuti.id_karyawan', $_SESSION['id_users']);
         $this->db->order_by($this->id, $this->order);
         return $this->db->get($this->table)->result();
     }
@@ -38,6 +46,10 @@ class Cuti_model extends CI_Model
     // get data by id
     function get_by_id($id)
     {
+        $this->datatables->select('cuti.id_cuti,cuti.id_karyawan,karyawan.nama,cuti.tanggal1,cuti.tanggal2,cuti_jenis.jenis,cuti.id_jenis,cuti.validasi');
+        $this->datatables->from('cuti');
+        $this->datatables->join('karyawan', 'cuti.id_karyawan = karyawan.id_karyawan');
+        $this->datatables->join('cuti_jenis', 'cuti.id_jenis = cuti_jenis.id_jenis');
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
@@ -45,13 +57,13 @@ class Cuti_model extends CI_Model
     // get total rows
     function total_rows($q = NULL)
     {
-        $this->db->like('id_cuti', $q);
-        $this->db->or_like('id_karyawan', $q);
-        $this->db->or_like('tanggal1', $q);
-        $this->db->or_like('tanggal2', $q);
-        $this->db->or_like('id_jenis', $q);
-        $this->db->or_like('status', $q);
-        $this->db->or_like('validasi', $q);
+        $this->db->like('cuti.id_karyawan', $q);
+        $this->db->or_like('cuti.id_cuti', $q);
+        $this->db->or_like('karyawan.nama', $q);
+        $this->db->or_like('cuti.tanggal1', $q);
+        $this->db->or_like('cuti.tanggal2', $q);
+        $this->db->or_like('cuti_jenis.jenis', $q);
+        $this->db->or_like('cuti.validasi', $q);
         $this->db->from($this->table);
         return $this->db->count_all_results();
     }
@@ -60,13 +72,13 @@ class Cuti_model extends CI_Model
     function get_limit_data($limit, $start = 0, $q = NULL)
     {
         $this->db->order_by($this->id, $this->order);
-        $this->db->like('id_cuti', $q);
-        $this->db->or_like('id_karyawan', $q);
-        $this->db->or_like('tanggal1', $q);
-        $this->db->or_like('tanggal2', $q);
-        $this->db->or_like('id_jenis', $q);
-        $this->db->or_like('status', $q);
-        $this->db->or_like('validasi', $q);
+        $this->db->like('cuti.id_karyawan', $q);
+        $this->db->or_like('cuti.id_cuti', $q);
+        $this->db->or_like('karyawan.nama', $q);
+        $this->db->or_like('cuti.tanggal1', $q);
+        $this->db->or_like('cuti.tanggal2', $q);
+        $this->db->or_like('cuti_jenis.jenis', $q);
+        $this->db->or_like('cuti.validasi', $q);
         $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
@@ -74,6 +86,7 @@ class Cuti_model extends CI_Model
     // insert data
     function insert($data)
     {
+        // $this->db->table('cuti');
         $this->db->insert($this->table, $data);
     }
 
