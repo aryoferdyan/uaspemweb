@@ -98,8 +98,7 @@
             <!-- sidebar: style can be found in sidebar.less -->
             <?php $this->load->view('template/sidebar'); ?>
         </aside>
-
-<?php var_dump($_SESSION); ?>
+        
 
         <?php
         echo $contents;

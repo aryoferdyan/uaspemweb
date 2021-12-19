@@ -18,11 +18,12 @@ class Presensi_hrd_model extends CI_Model
     // datatables
     function json()
     {
-        $this->datatables->select('id_presensi,id_karyawan,tanggal,waktu_masuk,waktu_keluar');
+        $this->datatables->select('id_presensi, presensi.id_karyawan,tanggal,waktu_masuk,waktu_keluar, nama');
         $this->datatables->from('presensi');
         //add this line for join
         //$this->datatables->join('table2', 'presensi.field = table2.field');
-        // $this->datatables->join('karyawan', 'presensi.id_karyawan = karyawan.id_karyawan');
+        $this->datatables->join('karyawan', 'presensi.id_karyawan = karyawan.id_karyawan');
+        // $this->datatables->order_by('tanggal DESC');
         $this->datatables->add_column('action', anchor(site_url('presensi_hrd/read/$1'), '<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')) . " 
             " . anchor(site_url('presensi_hrd/update/$1'), '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')) . " 
                 " . anchor(site_url('presensi_hrd/delete/$1'), '<i class="fa fa-trash-o" aria-hidden="true"></i>', 'class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_presensi');
@@ -48,6 +49,7 @@ class Presensi_hrd_model extends CI_Model
     {
         $this->db->like('id_presensi', $q);
         $this->db->or_like('id_karyawan', $q);
+        $this->db->or_like('nama', $q);
         $this->db->or_like('tanggal', $q);
         $this->db->or_like('waktu_masuk', $q);
         $this->db->or_like('waktu_keluar', $q);
@@ -61,6 +63,7 @@ class Presensi_hrd_model extends CI_Model
         $this->db->order_by($this->id, $this->order);
         $this->db->like('id_presensi', $q);
         $this->db->or_like('id_karyawan', $q);
+        $this->db->or_like('nama', $q);
         $this->db->or_like('tanggal', $q);
         $this->db->or_like('waktu_masuk', $q);
         $this->db->or_like('waktu_keluar', $q);
@@ -68,25 +71,7 @@ class Presensi_hrd_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
-    // insert data
-    function insert($data)
-    {
-        $this->db->insert($this->table, $data);
-    }
 
-    // update data
-    function update($id, $data)
-    {
-        $this->db->where($this->id, $id);
-        $this->db->update($this->table, $data);
-    }
-
-    // delete data
-    function delete($id)
-    {
-        $this->db->where($this->id, $id);
-        $this->db->delete($this->table);
-    }
 }
 
 /* End of file Presensi_hrd_model.php */

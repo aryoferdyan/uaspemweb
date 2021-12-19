@@ -14,8 +14,8 @@
 					</tr>
 
 					<tr>
-						<td width='200'>Nama <?php echo form_error('nama') ?></td>
-						<td><input readonly type="text" class="form-control" name="nama" id="nama" placeholder="Nama" value="<?php echo $_SESSION['full_name'] ?>" disabled /></td>
+						<!-- <td width='200'>Nama <?php echo form_error('nama') ?></td> -->
+						<td><input readonly type="hidden" class="form-control" name="nama" id="nama" placeholder="Nama" value="<?php echo $_SESSION['full_name'] ?>" disabled /></td>
 					</tr>
 
 					<tr>
@@ -35,7 +35,7 @@
 					</tr>
 
 					<tr>
-						<td><input type="hidden" class="form-control" name="validasi" id="validasi" placeholder="Validasi" value="0" /></td>
+						<td><input type="hidden" class="form-control" name="validasi" id="validasi" placeholder="Validasi" value="2" /></td>
 						<!-- <td><input type="hidden" class="form-control" name="status" id="status" placeholder="" value="0" /></td> -->
 					</tr>
 

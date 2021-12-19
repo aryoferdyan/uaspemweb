@@ -32,13 +32,16 @@
                         </td>
                     </tr>
 
-
+                    <tr>
+                        <td width='200'>Validasi <?php echo form_error('validasi') ?></td>
+                        <td><?php echo cmb_dinamis('validasi', 'cuti_valid', 'pernyataan', 'validasi', $validasi, 'DESC') ?></td>
+                    </tr>
 
                     <tr>
                         <td></td>
                         <td>
                             <input type="hidden" name="id_cuti" value="<?php echo $id_cuti; ?>" />
-                            <button type="submit" class="btn btn-danger" <?php if ($validasi == 1 | $validasi == 0){echo "disabled";}else{} ?>><i class="fa fa-floppy-o"></i> <?php echo $button ?></button>
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-floppy-o"></i> <?php echo $button ?></button>
                             <a href="<?php echo site_url('cuti') ?>" class="btn btn-info"><i class="fa fa-sign-out"></i> Kembali</a>
                         </td>
                     </tr>

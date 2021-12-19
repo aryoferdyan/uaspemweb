@@ -29,16 +29,17 @@ class Cuti_model extends CI_Model
         $this->datatables->join('cuti_jenis', 'cuti.id_jenis = cuti_jenis.id_jenis');
         //add this line for join
         //$this->datatables->join('table2', 'cuti.field = table2.field');
+        $this->datatables->where('cuti.id_karyawan', $_SESSION['id_users']);
         $this->datatables->add_column('action', anchor(site_url('cuti/read/$1'), '<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-info btn-sm')) . " 
-            " . anchor(site_url('cuti/update/$1'), '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-success btn-sm')) . " 
-                " . anchor(site_url('cuti/delete/$1'), '<i class="fa fa-trash-o" aria-hidden="true"></i>', 'class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_cuti');
+            " . anchor(site_url('cuti/update/$1'), '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-primary btn-sm')) . " 
+                " ,'id_cuti');
         return $this->datatables->generate();
     }
 
     // get all
-    function get_all()
+    function get_all($id)
     {
-        // $this->db->order_by('cuti.id_karyawan', $_SESSION['id_users']);
+        $this->db->where($this->id, $id);
         $this->db->order_by($this->id, $this->order);
         return $this->db->get($this->table)->result();
     }

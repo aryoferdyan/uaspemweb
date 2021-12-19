@@ -37,6 +37,8 @@
 					<td><?php
 						if ($validasi == 1) {
 							echo "Disetujui";
+						} else if ($validasi == 2){
+							echo "Belum Disetujui";
 						} else {
 							echo "Ditolak";
 						}

@@ -5,24 +5,19 @@
                 <div class="box box-warning box-solid">
     
                     <div class="box-header">
-                        <h3 class="box-title">KELOLA DATA CUTI</h3>
+                        <h3 class="box-title">KELOLA DATA JURNAL</h3>
                     </div>
         
         <div class="box-body">
         <div style="padding-bottom: 10px;"'>
-        <?php echo anchor(site_url('cuti_hrd/create'), '<i class="fa fa-wpforms" aria-hidden="true"></i> Tambah Data', 'class="btn btn-success btn-sm"'); ?></div>
+        <?php echo anchor(site_url('jurnal/create'), '<i class="fa fa-wpforms" aria-hidden="true"></i> Tambah Data', 'class="btn btn-danger btn-sm"'); ?></div>
         <table class="table table-bordered table-striped" id="mytable">
             <thead>
                 <tr>
                     <th width="30px">No</th>
-                    <th>Id Cuti</th>
-                    <th>Id Karyawan</th>
-                    <th>Nama</th>
-                    <th>Tanggal1</th>
-                    <th>Tanggal2</th>
-                    <th>Jenis</th>
-                    <th>Validasi</th>
-                    <th width="200px">Action</th>
+		    <th>Id Presensi</th>
+		    <th>Isi</th>
+		    <th width="200px">Action</th>
                 </tr>
             </thead>
 	    
@@ -67,29 +62,17 @@
                     },
                     processing: true,
                     serverSide: true,
-                    ajax: {"url": "cuti_hrd/json", "type": "POST"},
+                    ajax: {"url": "jurnal/json", "type": "POST"},
                     columns: [
-                        { "data" : "id_cuti" , "orderable" : false },
-                            {"data": "id_cuti"},
-                            {"data": "id_karyawan" },
-                            {"data": "nama" },
-                            {"data": "tanggal1" },
-                            {"data": "tanggal2" },
-                            {"data": "jenis" },
-                            {"data": "validasi", "orderable" : false, "className" : "text-center",
-                            render: function(data, type) {
-                                
-                                if (data == 2){
-                                    return '<button class="btn btn-success btn-sm"><i class="fa fa-check" aria-hidden="true"></i></button>'+' '+
-                                    '<button class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>';
-                                    
-                                } else if (data == 1) {
-                                    return '<button class="btn btn-info setuju">Disetujui</button>';
-                                } else {
-                                    return '<button class="btn btn-danger ditolak" disabled>Ditolak</button>';
-                                }
-                            } }, 
-                            { "data" : "action" , "orderable" : false, "className" : "text-center" } 
+                        {
+                            "data": "id_jurnal",
+                            "orderable": false
+                        },{"data": "id_presensi"},{"data": "isi"},
+                        {
+                            "data" : "action",
+                            "orderable": false,
+                            "className" : "text-center"
+                        }
                     ],
                     order: [[0, 'desc']],
                     rowCallback: function(row, data, iDisplayIndex) {
@@ -102,25 +85,3 @@
                 });
             });
         </script>
-        <script type="text/javascript">
-            
-            $("#mytable").on('click','.btn-success',function(){
-                if (confirm('Apakah anda yakin untuk setuju pada pengajuan cuti ini?')){
-                    var row = $(this).closest("tr");
-                    var nilai = row.find("td:eq(1)").text();
-                    window.location.href = 'cuti_hrd/accept/'+nilai;
-                }
-            });
-
-
-            $("#mytable").on('click','.btn-danger', function(){
-                if (confirm('Apakah anda yakin untuk menolak pengajuan cuti ini?')){
-                    var row = $(this).closest("tr");
-                    var nilai = row.find("td:eq(1)").text();
-                    window.location.href = 'cuti_hrd/reject/'+nilai;
-                } 
-            });
-
-
-
-</script>

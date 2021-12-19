@@ -6,36 +6,41 @@
 			</div>
 			<form action="<?php echo $action; ?>" method="post">
 			
-				<table class='table table-bordered'>
-	
+			<table class='table table-bordered'>
 					<tr>
-						<td width='200'>Id Karyawan <?php echo form_error('id_karyawan') ?></td><td><input type="text" class="form-control" name="id_karyawan" id="id_karyawan" placeholder="Id Karyawan" value="<?php echo $id_karyawan; ?>" /></td>
+						<input type="hidden" name="id_cuti" value="<?= $id_cuti ?>" />
+						<td width='200'>Nama Karyawan <?php echo form_error('id_karyawan') ?></td>
+                    	<td><?php echo cmb_dinamis('id_karyawan', 'karyawan', 'nama', 'id_karyawan', $id_karyawan, 'ASC') ?>
 					</tr>
-	
+
 					<tr>
-						<td width='200'>Tanggal1 <?php echo form_error('tanggal1') ?></td>
+						<td width='200'>Tanggal Mulai Cuti <?php echo form_error('tanggal1') ?></td>
 						<td><input type="date" class="form-control" name="tanggal1" id="tanggal1" placeholder="Tanggal1" value="<?php echo $tanggal1; ?>" /></td>
 					</tr>
-	
+
 					<tr>
-						<td width='200'>Tanggal2 <?php echo form_error('tanggal2') ?></td>
+						<td width='200'>Tanggal Masuk <?php echo form_error('tanggal2') ?></td>
 						<td><input type="date" class="form-control" name="tanggal2" id="tanggal2" placeholder="Tanggal2" value="<?php echo $tanggal2; ?>" /></td>
 					</tr>
-	
+
 					<tr>
-						<td width='200'>Id Jenis <?php echo form_error('id_jenis') ?></td><td><input type="text" class="form-control" name="id_jenis" id="id_jenis" placeholder="Id Jenis" value="<?php echo $id_jenis; ?>" /></td>
+						<td width='200'>Jenis <?php echo form_error('id_jenis') ?></td>
+						<td><?php echo cmb_dinamis('id_jenis', 'cuti_jenis', 'jenis', 'id_jenis', $id_jenis, 'DESC') ?>
+						</td>
 					</tr>
-	
+
 					<tr>
-						<td width='200'>Validasi <?php echo form_error('validasi') ?></td><td><input type="text" class="form-control" name="validasi" id="validasi" placeholder="Validasi" value="<?php echo $validasi; ?>" /></td>
+						<td><input type="hidden" class="form-control" name="validasi" id="validasi" placeholder="Validasi" value="2" /></td>
+						<!-- <td><input type="hidden" class="form-control" name="status" id="status" placeholder="" value="0" /></td> -->
 					</tr>
-	
+
 					<tr>
 						<td></td>
 						<td>
-							<input type="hidden" name="id_cuti" value="<?php echo $id_cuti; ?>" /> 
-							<button type="submit" class="btn btn-danger"><i class="fa fa-floppy-o"></i> <?php echo $button ?></button> 
-							<a href="<?php echo site_url('cuti_hrd') ?>" class="btn btn-info"><i class="fa fa-sign-out"></i> Kembali</a>
+
+							<button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i>
+								<?php echo $button ?></button>
+							<a href="<?php echo site_url('cuti_hrd') ?>" class="btn btn-danger"><i class="fa fa-sign-out"></i> Kembali</a>
 						</td>
 					</tr>
 	

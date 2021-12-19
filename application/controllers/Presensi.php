@@ -56,7 +56,7 @@ class Presensi extends CI_Controller
             'waktu_masuk' => set_value('waktu_masuk'),
             'waktu_keluar' => set_value('waktu_keluar'),
         );
-        $this->template->load('template', 'presensi/presensi_form', $data);
+        $this->template->load('template', 'presensi/presensi_masuk', $data);
     }
 
     public function create_action()
@@ -95,7 +95,7 @@ class Presensi extends CI_Controller
                 'waktu_masuk' => set_value('waktu_masuk', $row->waktu_masuk),
                 'waktu_keluar' => set_value('waktu_keluar', $row->waktu_keluar),
             );
-            $this->template->load('template', 'presensi/presensi_form', $data);
+            $this->template->load('template', 'presensi/presensi_keluar', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('presensi'));

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 18 Des 2021 pada 15.55
+-- Waktu pembuatan: 19 Des 2021 pada 08.40
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.3.10
 
@@ -40,6 +40,14 @@ GROUP by karyawan.nik;
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `presensi` (IN `tgl` CHAR, IN `w1` CHAR, IN `w2` CHAR, IN `id` CHAR)  NO SQL
+BEGIN
+
+INSERT INTO presensi (`id_presensi`, `id_karyawan`, `tanggal`, `waktu_masuk`, `waktu_keluar`) 
+VALUES (id+tgl,id,tgl,w1,w2);
+
+END$$
+
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -69,8 +77,10 @@ INSERT INTO `cuti` (`id_cuti`, `id_karyawan`, `tanggal1`, `tanggal2`, `id_jenis`
 (5, 99, '2021-12-22', '2021-12-24', 1, 0),
 (6, 99, '2021-12-20', '2021-12-19', 1, 0),
 (7, 99, '2021-12-25', '2021-12-25', 1, 0),
-(8, 99, '2021-12-26', '2021-12-26', 1, 0),
-(9, 99, '2021-12-31', '2021-12-31', 1, 0);
+(10, 99, '2021-12-19', '2021-12-20', 1, 0),
+(11, 100, '2021-12-21', '2021-12-22', 3, 2),
+(12, 99, '2021-12-23', '2021-12-25', 1, 0),
+(17, 99, '2021-12-29', '2021-12-31', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -96,14 +106,44 @@ INSERT INTO `cuti_jenis` (`id_jenis`, `jenis`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `cuti_valid`
+--
+
+CREATE TABLE `cuti_valid` (
+  `validasi` tinyint(1) NOT NULL,
+  `pernyataan` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `cuti_valid`
+--
+
+INSERT INTO `cuti_valid` (`validasi`, `pernyataan`) VALUES
+(0, 'Ditolak'),
+(1, 'Disetujui'),
+(2, 'Belum disetujui');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `jurnal`
 --
 
 CREATE TABLE `jurnal` (
   `id_jurnal` int(11) NOT NULL,
-  `id_presensi` int(11) NOT NULL,
+  `id_presensi` varchar(25) NOT NULL,
   `isi` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `jurnal`
+--
+
+INSERT INTO `jurnal` (`id_jurnal`, `id_presensi`, `isi`) VALUES
+(1, '99-2021-12-19', 'Melanjutkan projek kemaren'),
+(2, '100-2021-12-19', 'Membuat data laporan bulanan, bulan Juli'),
+(3, '100-2021-12-19', 'Mengisi galon kosong'),
+(4, '105-2021-12-19', '8 Jam nggak ngapa-ngapain');
 
 -- --------------------------------------------------------
 
@@ -193,7 +233,7 @@ INSERT INTO `karyawan_jabatan` (`id_jabatan`, `jabatan`, `tunjangan`) VALUES
 --
 
 CREATE TABLE `presensi` (
-  `id_presensi` varchar(255) NOT NULL,
+  `id_presensi` char(25) NOT NULL,
   `id_karyawan` int(11) NOT NULL,
   `tanggal` date NOT NULL,
   `waktu_masuk` time NOT NULL,
@@ -206,7 +246,18 @@ CREATE TABLE `presensi` (
 
 INSERT INTO `presensi` (`id_presensi`, `id_karyawan`, `tanggal`, `waktu_masuk`, `waktu_keluar`) VALUES
 ('100-2021-12-17', 100, '2021-12-17', '17:07:00', '17:07:09'),
-('99-2021-12-17', 99, '2021-12-17', '15:44:54', '16:51:32');
+('100-2021-12-19', 100, '2021-12-19', '10:13:02', '10:13:04'),
+('101-2021-12-19', 101, '2021-12-19', '13:16:49', '13:16:51'),
+('103-2021-12-14', 103, '2021-12-14', '08:00:00', '17:00:00'),
+('103-2021-12-15', 103, '2021-12-15', '08:00:00', '17:00:00'),
+('103-2021-12-16', 103, '2021-12-16', '08:00:00', '17:00:00'),
+('103-2021-12-17', 103, '2021-12-17', '08:00:00', '17:00:00'),
+('104-2021-12-19', 104, '2021-12-19', '08:00:00', '17:00:00'),
+('105-2021-12-13', 105, '2021-12-13', '08:00:00', '17:00:00'),
+('105-2021-12-19', 105, '2021-12-19', '13:15:23', '13:15:25'),
+('99-2021-12-17', 99, '2021-12-17', '15:44:54', '16:51:32'),
+('99-2021-12-18', 99, '2021-12-18', '22:00:14', '22:00:17'),
+('99-2021-12-19', 99, '2021-12-19', '09:19:56', '09:19:59');
 
 -- --------------------------------------------------------
 
@@ -300,7 +351,7 @@ INSERT INTO `tbl_menu` (`id_menu`, `title`, `url`, `icon`, `is_main_menu`, `is_a
 (20, 'ADMIN', 'menu', 'fa fa-server', 0, 'y'),
 (21, 'lain-lain', 'lain', 'fa', 20, 'y'),
 (22, 'DEVISI', 'devisi', 'fa', 20, 'y'),
-(24, 'Daftar presensi', 'Presensi_rekap', 'fa', 15, 'y');
+(24, 'Daftar presensi', 'Presensi_hrd', 'fa', 15, 'y');
 
 -- --------------------------------------------------------
 
@@ -389,6 +440,12 @@ ALTER TABLE `cuti_jenis`
   ADD PRIMARY KEY (`id_jenis`);
 
 --
+-- Indeks untuk tabel `cuti_valid`
+--
+ALTER TABLE `cuti_valid`
+  ADD PRIMARY KEY (`validasi`);
+
+--
 -- Indeks untuk tabel `jurnal`
 --
 ALTER TABLE `jurnal`
@@ -456,7 +513,7 @@ ALTER TABLE `tbl_user_level`
 -- AUTO_INCREMENT untuk tabel `cuti`
 --
 ALTER TABLE `cuti`
-  MODIFY `id_cuti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_cuti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT untuk tabel `cuti_jenis`
@@ -468,7 +525,7 @@ ALTER TABLE `cuti_jenis`
 -- AUTO_INCREMENT untuk tabel `jurnal`
 --
 ALTER TABLE `jurnal`
-  MODIFY `id_jurnal` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_jurnal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `karyawan`

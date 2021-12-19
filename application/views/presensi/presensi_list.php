@@ -14,8 +14,8 @@
                         $idpres = $_SESSION['id_users'] . '-' . date('Y-m-d');
                         // if ($x == '')
                         ?>
-                            <?php echo anchor(site_url('presensi/create'), '<i class="fa fa-wpforms" aria-hidden="true"></i> Presensi Masuk', 'class="btn btn-success btn-sm"'); ?>
-                            <?php echo anchor(site_url('presensi/update/' .$idpres), '<i class="fa fa-wpforms" aria-hidden="true"></i> Presensi Keluar', 'class="btn btn-primary btn-sm"'); ?>
+                            <?php $x='MASUK'; echo anchor(site_url('presensi/create'), '<i class="fa fa-wpforms" aria-hidden="true"></i> Presensi Masuk', 'class="btn btn-success btn-sm"'); ?>
+                            <?php $x='KELUAR';echo anchor(site_url('presensi/update/' .$idpres), '<i class="fa fa-wpforms" aria-hidden="true"></i> Presensi Keluar', 'class="btn btn-primary btn-sm"'); ?>
                     </div>
                     <table class="table table-bordered table-striped" id="mytable">
                         <thead>
