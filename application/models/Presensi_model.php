@@ -25,7 +25,7 @@ class Presensi_model extends CI_Model
         $this->datatables->where(array('id_karyawan' => $_SESSION['id_users']));
         $this->datatables->add_column('action', anchor(site_url('presensi/read/$1'), '<i class="fa fa-eye" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm')) . " 
             " . anchor(site_url('/jurnal/$1'), '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-primary btn-sm')) . " 
-                " . anchor(site_url('presensi/delete/$1'), '<i class="fa fa-trash-o" aria-hidden="true"></i>', 'class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_presensi');
+                ", 'id_presensi');
         return $this->datatables->generate();
     }
 

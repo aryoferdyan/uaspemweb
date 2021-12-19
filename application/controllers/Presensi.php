@@ -146,7 +146,7 @@ class Presensi extends CI_Controller
         );
         $this->form_validation->set_rules('id_karyawan', 'id karyawan', 'trim|required');
         $this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required');
-        $this->form_validation->set_rules('waktu_masuk', 'waktu masuk', 'trim|required');
+        //$this->form_validation->set_rules('waktu_masuk', 'waktu masuk', 'trim|required');
         // $this->form_validation->set_rules('waktu_keluar', 'waktu keluar', 'trim|required');
 
         // $this->form_validation->set_rules('id_presensi', 'id_presensi', 'trim');
