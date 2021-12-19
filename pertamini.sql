@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Des 2021 pada 08.40
+-- Waktu pembuatan: 19 Des 2021 pada 09.12
 -- Versi server: 10.4.8-MariaDB
 -- Versi PHP: 7.3.10
 
@@ -21,34 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `pertamini`
 --
-
-DELIMITER $$
---
--- Prosedur
---
-CREATE DEFINER=`root`@`localhost` PROCEDURE `karyawan` ()  NO SQL
-BEGIN
-
-SELECT karyawan.nik AS "NIK", karyawan.nma AS "Nama", jabatan.nma AS "Jabatan", devisi.nma AS "Devisi",
-        CASE karyawan.sex
-        WHEN '0' THEN 'Perempuan'
-        ELSE 'Laki-laki'
-        END AS 'Gender'
-FROM karyawan, jabatan, devisi
-WHERE karyawan.jab = jabatan.jab AND karyawan.dev = devisi.dev
-GROUP by karyawan.nik;
-
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `presensi` (IN `tgl` CHAR, IN `w1` CHAR, IN `w2` CHAR, IN `id` CHAR)  NO SQL
-BEGIN
-
-INSERT INTO presensi (`id_presensi`, `id_karyawan`, `tanggal`, `waktu_masuk`, `waktu_keluar`) 
-VALUES (id+tgl,id,tgl,w1,w2);
-
-END$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -143,7 +115,8 @@ INSERT INTO `jurnal` (`id_jurnal`, `id_presensi`, `isi`) VALUES
 (1, '99-2021-12-19', 'Melanjutkan projek kemaren'),
 (2, '100-2021-12-19', 'Membuat data laporan bulanan, bulan Juli'),
 (3, '100-2021-12-19', 'Mengisi galon kosong'),
-(4, '105-2021-12-19', '8 Jam nggak ngapa-ngapain');
+(4, '105-2021-12-19', '8 Jam nggak ngapa-ngapain'),
+(5, '99-2021-12-19', 'nggak mgapa-ngapain');
 
 -- --------------------------------------------------------
 
@@ -248,6 +221,7 @@ INSERT INTO `presensi` (`id_presensi`, `id_karyawan`, `tanggal`, `waktu_masuk`, 
 ('100-2021-12-17', 100, '2021-12-17', '17:07:00', '17:07:09'),
 ('100-2021-12-19', 100, '2021-12-19', '10:13:02', '10:13:04'),
 ('101-2021-12-19', 101, '2021-12-19', '13:16:49', '13:16:51'),
+('102-2021-12-19', 102, '2021-12-19', '15:01:48', '15:01:51'),
 ('103-2021-12-14', 103, '2021-12-14', '08:00:00', '17:00:00'),
 ('103-2021-12-15', 103, '2021-12-15', '08:00:00', '17:00:00'),
 ('103-2021-12-16', 103, '2021-12-16', '08:00:00', '17:00:00'),
@@ -525,7 +499,7 @@ ALTER TABLE `cuti_jenis`
 -- AUTO_INCREMENT untuk tabel `jurnal`
 --
 ALTER TABLE `jurnal`
-  MODIFY `id_jurnal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_jurnal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `karyawan`
