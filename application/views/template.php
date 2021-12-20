@@ -58,26 +58,33 @@
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
 
-
+                        <!-- FOTO PROFIL -->
+                        <?php
+                        $profil = $this->session->userdata('images');
+                        // echo $profil;
+                        if ($profil == '') {
+                            $profil = 'atomix_user31.png';
+                        }
+                        ?>
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="<?php echo base_url() ?>assets/foto_profil/<?php echo $this->session->userdata('images'); ?>" class="user-image" alt="User Image">
+                                <img src="<?php echo base_url() ?>assets/foto_profil/<?= $profil ?>" class="user-image" alt="User Image">
                                 <span class="hidden-xs"><?php echo $this->session->userdata('full_name'); ?> </span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="<?php echo base_url() ?>assets/foto_profil/<?php echo $this->session->userdata('images'); ?> " class="img-circle" alt="User Image">
+                                    <img src="<?php echo base_url() ?>assets/foto_profil/<?= $profil ?>" class="img-circle" alt="User Image">
 
                                     <p>
                                         <?php echo $this->session->userdata('full_name'); ?>
-                                        <small>Member since Nov. 2021</small>
+                                        <small>Member since Des. 2021</small>
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
-                                    
+
                                     <div class="pull-center">
                                         <?php echo anchor('auth/logout', 'Logout', array('class' => 'btn btn-default btn-flat')); ?>
                                         <!--<a href="#" class="btn btn-default btn-flat">Sign out</a>-->
@@ -98,7 +105,7 @@
             <!-- sidebar: style can be found in sidebar.less -->
             <?php $this->load->view('template/sidebar'); ?>
         </aside>
-        
+
 
         <?php
         echo $contents;

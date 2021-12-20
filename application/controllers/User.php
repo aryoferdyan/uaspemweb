@@ -60,7 +60,7 @@ class User extends CI_Controller
                 'full_name'     => $this->input->post('full_name', TRUE),
                 'email'         => $this->input->post('email', TRUE),
                 'password'      => $hashPassword,
-                'images'        => $foto['file_name'],
+                'images'        => 'atomix_user31.png',
                 'id_user_level' => $this->input->post('id_user_level', TRUE),
                 'is_aktif'      => $this->input->post('is_aktif', TRUE),
                 //'id_karyawan'   => $this->input->post('id_karyawan', TRUE),
