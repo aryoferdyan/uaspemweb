@@ -34,7 +34,7 @@
 					<tr>
 						<td></td>
 						<td>
-						<input readonly type="hidden" class="form-control" name="waktu_keluar" id="waktu_keluar" value="00:00:00"/>
+						<input readonly type="hidden" name="waktu_keluar" id="waktu_keluar" value="00:00:00"/>
 							<input type="hidden" name="id_karyawan" id="id_karyawan" value="<?php echo  $_SESSION['id_users'] ?>" />
 							<button type="submit" class="btn btn-danger"><i class="fa fa-floppy-o"></i>
 								PRESENSI</button>
