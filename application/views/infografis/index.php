@@ -69,10 +69,13 @@
             <div class="inner">
               <h3>
                 <?php
-                $tma = ($connect->query('SELECT COUNT(karyawan.id_karyawan) AS hasil FROM karyawan, presensi WHERE karyawan.id_karyawan = presensi.id_karyawan AND MONTH(presensi.tanggal) AND YEAR(presensi.tanggal)'));
+                $tgl = date('Y-m-d');
+                // $tma = ($connect->query('SELECT COUNT(karyawan.id_karyawan) AS hasil FROM karyawan'));
+                $tma = ($connect->query("SELECT COUNT(karyawan.id_karyawan) AS hasil FROM karyawan, presensi WHERE karyawan.id_karyawan = presensi.id_karyawan AND presensi.tanggal = '$tgl'"));
                 $Masuk = $tma->fetch();
                 $tdkMasuk = $karyawan['hasil'] - $Masuk['hasil'];
-                echo "$tdkMasuk" ?>
+                // $tdkMasuk = $karyawan['hasil'] - $Masuk['hasil'];
+                echo $tdkMasuk ?>
               </h3>
 
               <p>Jumlah Karyawan Tidak Masuk</p>
