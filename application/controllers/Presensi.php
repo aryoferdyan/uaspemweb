@@ -118,7 +118,7 @@ class Presensi extends CI_Controller
 
             $this->Presensi_model->update($this->input->post('id_presensi', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
-            redirect(site_url('presensi'));
+            redirect(site_url('jurnal/create'));
         }
     }
 
