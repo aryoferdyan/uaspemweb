@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 21 Des 2021 pada 04.25
+-- Waktu pembuatan: 21 Des 2021 pada 07.16
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 7.4.24
 
@@ -51,7 +51,8 @@ INSERT INTO `cuti` (`id_cuti`, `id_karyawan`, `tanggal1`, `tanggal2`, `id_jenis`
 (10, 99, '2021-12-19', '2021-12-20', 1, 0),
 (11, 100, '2021-12-21', '2021-12-22', 3, 2),
 (12, 99, '2021-12-23', '2021-12-25', 1, 0),
-(17, 99, '2021-12-29', '2021-12-31', 2, 2);
+(17, 99, '2021-12-29', '2021-12-31', 2, 2),
+(18, 103, '2021-12-21', '2021-12-29', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -97,6 +98,35 @@ INSERT INTO `cuti_valid` (`validasi`, `pernyataan`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `gaji`
+--
+
+CREATE TABLE `gaji` (
+  `no_slip` varchar(20) NOT NULL,
+  `id_karyawan` int(11) NOT NULL,
+  `bln_periode` char(2) NOT NULL,
+  `thn_periode` char(4) NOT NULL,
+  `tgl_penggajian` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `gaji`
+--
+
+INSERT INTO `gaji` (`no_slip`, `id_karyawan`, `bln_periode`, `thn_periode`, `tgl_penggajian`) VALUES
+('2021-12-099', 99, '12', '2021', '2021-12-18'),
+('2021-12-100', 100, '12', '2021', '2021-12-18'),
+('2021-12-101', 101, '12', '2021', '2021-12-18'),
+('2021-12-102', 102, '12', '2021', '2021-12-18'),
+('2021-12-103', 103, '12', '2021', '2021-12-18'),
+('2021-12-104', 104, '12', '2021', '2021-12-18'),
+('2021-12-105', 105, '12', '2021', '2021-12-18'),
+('2021-12-106', 106, '12', '2021', '2021-12-18'),
+('2021-12-107', 107, '12', '2021', '2021-12-18');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `jurnal`
 --
 
@@ -115,7 +145,8 @@ INSERT INTO `jurnal` (`id_jurnal`, `id_presensi`, `isi`) VALUES
 (2, '100-2021-12-19', 'Membuat data laporan bulanan, bulan Juli'),
 (3, '100-2021-12-19', 'Mengisi galon kosong'),
 (4, '105-2021-12-19', '8 Jam nggak ngapa-ngapain'),
-(5, '99-2021-12-19', 'nggak mgapa-ngapain');
+(5, '99-2021-12-19', 'nggak mgapa-ngapain'),
+(6, '103-2021-12-21', 'Nggak ngapa ngapain');
 
 -- --------------------------------------------------------
 
@@ -222,17 +253,21 @@ INSERT INTO `presensi` (`id_presensi`, `id_karyawan`, `tanggal`, `waktu_masuk`, 
 ('100-2021-12-19', 100, '2021-12-19', '10:13:02', '10:13:04'),
 ('101-2021-12-19', 101, '2021-12-19', '13:16:49', '13:16:51'),
 ('102-2021-12-19', 102, '2021-12-19', '15:01:48', '15:01:51'),
+('102-2021-12-21', 102, '2021-12-21', '11:57:20', '11:57:26'),
 ('103-2021-12-14', 103, '2021-12-14', '08:00:00', '17:00:00'),
 ('103-2021-12-15', 103, '2021-12-15', '08:00:00', '17:00:00'),
 ('103-2021-12-16', 103, '2021-12-16', '08:00:00', '17:00:00'),
 ('103-2021-12-17', 103, '2021-12-17', '08:00:00', '17:00:00'),
+('103-2021-12-21', 103, '2021-12-21', '11:58:39', '11:58:41'),
 ('104-2021-12-19', 104, '2021-12-19', '08:00:00', '17:00:00'),
 ('105-2021-12-13', 105, '2021-12-13', '08:00:00', '17:00:00'),
 ('105-2021-12-19', 105, '2021-12-19', '13:15:23', '13:15:25'),
+('108-2021-12-21', 108, '2021-12-21', '11:18:54', '11:18:57'),
 ('99-2021-12-17', 99, '2021-12-17', '15:44:54', '16:51:32'),
 ('99-2021-12-18', 99, '2021-12-18', '22:00:14', '22:00:17'),
 ('99-2021-12-19', 99, '2021-12-19', '09:19:56', '09:19:59'),
-('99-2021-12-20', 99, '2021-12-20', '21:08:25', '21:08:31');
+('99-2021-12-20', 99, '2021-12-20', '21:08:25', '21:08:31'),
+('99-2021-12-21', 99, '2021-12-21', '11:08:14', '11:08:17');
 
 -- --------------------------------------------------------
 
@@ -276,7 +311,6 @@ INSERT INTO `tbl_hak_akses` (`id`, `id_user_level`, `id_menu`) VALUES
 (60, 3, 14),
 (61, 3, 13),
 (62, 3, 12),
-(63, 3, 19),
 (64, 1, 15),
 (65, 4, 10),
 (66, 4, 11),
@@ -289,7 +323,12 @@ INSERT INTO `tbl_hak_akses` (`id`, `id_user_level`, `id_menu`) VALUES
 (78, 4, 24),
 (79, 1, 24),
 (80, 1, 22),
-(81, 4, 22);
+(81, 4, 22),
+(82, 4, 25),
+(84, 1, 25),
+(86, 4, 19),
+(87, 3, 11),
+(89, 3, 19);
 
 -- --------------------------------------------------------
 
@@ -318,14 +357,15 @@ INSERT INTO `tbl_menu` (`id_menu`, `title`, `url`, `icon`, `is_main_menu`, `is_a
 (11, 'Cuti', 'cuti', 'fa', 19, 'y'),
 (12, 'Presensi', 'presensi', 'fa fa-fingerprint', 19, 'y'),
 (13, 'Jurnal harian', 'jurnal', 'fa fa-boo', 19, 'y'),
-(14, 'Gaji', 'gaji', 'fa', 15, 'y'),
+(14, 'Gaji', 'gaji', 'fa', 19, 'y'),
 (15, 'HRD', 'hrd', 'fa fa-users', 0, 'y'),
 (16, 'Infografis', 'infografis', 'fa fa-chart', 15, 'y'),
 (17, 'Daftar Cuti', 'cuti_hrd', 'fa', 15, 'y'),
 (19, 'USER', 'presensi', 'fa fa-user', 0, 'y'),
 (20, 'ADMIN', 'menu', 'fa fa-server', 0, 'y'),
 (22, 'DEVISI', 'devisi', 'fa', 15, 'y'),
-(24, 'Daftar presensi', 'Presensi_hrd', 'fa', 15, 'y');
+(24, 'Daftar presensi', 'Presensi_hrd', 'fa', 15, 'y'),
+(25, 'Daftar Gaji', 'gaji_hrd', 'fa', 15, 'y');
 
 -- --------------------------------------------------------
 
@@ -393,8 +433,7 @@ CREATE TABLE `tbl_user_level` (
 --
 
 INSERT INTO `tbl_user_level` (`id_user_level`, `nama_level`) VALUES
-(1, 'Super Admin'),
-(2, 'Admin'),
+(1, 'Admin'),
 (3, 'User'),
 (4, 'HRD');
 
@@ -419,6 +458,12 @@ ALTER TABLE `cuti_jenis`
 --
 ALTER TABLE `cuti_valid`
   ADD PRIMARY KEY (`validasi`);
+
+--
+-- Indeks untuk tabel `gaji`
+--
+ALTER TABLE `gaji`
+  ADD PRIMARY KEY (`no_slip`);
 
 --
 -- Indeks untuk tabel `jurnal`
@@ -488,7 +533,7 @@ ALTER TABLE `tbl_user_level`
 -- AUTO_INCREMENT untuk tabel `cuti`
 --
 ALTER TABLE `cuti`
-  MODIFY `id_cuti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_cuti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `cuti_jenis`
@@ -500,7 +545,7 @@ ALTER TABLE `cuti_jenis`
 -- AUTO_INCREMENT untuk tabel `jurnal`
 --
 ALTER TABLE `jurnal`
-  MODIFY `id_jurnal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_jurnal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `karyawan`
@@ -518,13 +563,13 @@ ALTER TABLE `karyawan_jabatan`
 -- AUTO_INCREMENT untuk tabel `tbl_hak_akses`
 --
 ALTER TABLE `tbl_hak_akses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_menu`
 --
 ALTER TABLE `tbl_menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_setting`
