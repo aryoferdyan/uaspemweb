@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 21 Des 2021 pada 03.58
--- Versi server: 10.4.8-MariaDB
--- Versi PHP: 7.3.10
+-- Waktu pembuatan: 21 Des 2021 pada 04.25
+-- Versi server: 10.4.21-MariaDB
+-- Versi PHP: 7.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -52,7 +51,7 @@ INSERT INTO `cuti` (`id_cuti`, `id_karyawan`, `tanggal1`, `tanggal2`, `id_jenis`
 (10, 99, '2021-12-19', '2021-12-20', 1, 0),
 (11, 100, '2021-12-21', '2021-12-22', 3, 2),
 (12, 99, '2021-12-23', '2021-12-25', 1, 0),
-(17, 99, '2021-12-29', '2021-12-31', 1, 2);
+(17, 99, '2021-12-29', '2021-12-31', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -150,7 +149,8 @@ INSERT INTO `karyawan` (`id_karyawan`, `nama`, `sex`, `address`, `place`, `date`
 (104, 'Amanda Manganopo', 0, 'Jl. Kabuto No 212, Jakarta Barat', 'Jakarta', '1994-08-23', 2, 5000000, '6'),
 (105, 'Ahmad Sobari', 1, 'Jl. Kenangan Mantan 44', 'Jakarta', '1977-12-03', 4, 12000000, '4'),
 (106, 'Zulfikli Sukur', 1, 'Jl. Kenangan Mantan 44', 'Jakarta', '1988-11-04', 1, 2010000, '7'),
-(107, 'Rita Sugiyarti', 0, 'Jl. Kenangan Mantan 44', 'Jakarta', '1970-09-12', 4, 12000000, '6');
+(107, 'Rita Sugiyarti', 0, 'Jl. Kenangan Mantan 44', 'Jakarta', '1970-09-12', 4, 12000000, '6'),
+(108, 'M. Hardiansyah', 1, 'Jawa Timur', 'Solo', '2002-02-12', 4, 32000000, '1');
 
 -- --------------------------------------------------------
 
@@ -232,7 +232,7 @@ INSERT INTO `presensi` (`id_presensi`, `id_karyawan`, `tanggal`, `waktu_masuk`, 
 ('99-2021-12-17', 99, '2021-12-17', '15:44:54', '16:51:32'),
 ('99-2021-12-18', 99, '2021-12-18', '22:00:14', '22:00:17'),
 ('99-2021-12-19', 99, '2021-12-19', '09:19:56', '09:19:59'),
-('99-2021-12-21', 99, '2021-12-21', '09:56:06', '09:56:08');
+('99-2021-12-20', 99, '2021-12-20', '21:08:25', '21:08:31');
 
 -- --------------------------------------------------------
 
@@ -286,10 +286,10 @@ INSERT INTO `tbl_hak_akses` (`id`, `id_user_level`, `id_menu`) VALUES
 (70, 4, 15),
 (71, 4, 16),
 (72, 4, 17),
-(73, 4, 19),
 (78, 4, 24),
 (79, 1, 24),
-(80, 1, 25);
+(80, 1, 22),
+(81, 4, 22);
 
 -- --------------------------------------------------------
 
@@ -314,7 +314,6 @@ INSERT INTO `tbl_menu` (`id_menu`, `title`, `url`, `icon`, `is_main_menu`, `is_a
 (1, 'Menu Management', 'kelolamenu', 'fa', 20, 'y'),
 (2, 'User Management', 'user', 'fa', 20, 'y'),
 (3, 'User Level', 'userlevel', 'fa', 20, 'y'),
-(9, 'Contoh Form', 'welcome/form', 'fa fa-id-card', 0, 'y'),
 (10, 'DAFTAR KARYAWAN', 'karyawan', 'fa fa-book-open', 15, 'y'),
 (11, 'Cuti', 'cuti', 'fa', 19, 'y'),
 (12, 'Presensi', 'presensi', 'fa fa-fingerprint', 19, 'y'),
@@ -325,8 +324,8 @@ INSERT INTO `tbl_menu` (`id_menu`, `title`, `url`, `icon`, `is_main_menu`, `is_a
 (17, 'Daftar Cuti', 'cuti_hrd', 'fa', 15, 'y'),
 (19, 'USER', 'presensi', 'fa fa-user', 0, 'y'),
 (20, 'ADMIN', 'menu', 'fa fa-server', 0, 'y'),
-(24, 'Daftar presensi', 'Presensi_hrd', 'fa', 15, 'y'),
-(25, 'Devisi', 'devisi', 'fa', 20, 'y');
+(22, 'DEVISI', 'devisi', 'fa', 15, 'y'),
+(24, 'Daftar presensi', 'Presensi_hrd', 'fa', 15, 'y');
 
 -- --------------------------------------------------------
 
@@ -345,7 +344,7 @@ CREATE TABLE `tbl_setting` (
 --
 
 INSERT INTO `tbl_setting` (`id_setting`, `nama_setting`, `value`) VALUES
-(1, 'Tampil Menu', 'tidak');
+(1, 'Tampil Menu', 'ya');
 
 -- --------------------------------------------------------
 
@@ -358,7 +357,7 @@ CREATE TABLE `tbl_user` (
   `full_name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `images` text NOT NULL,
+  `images` text NOT NULL DEFAULT 'atomix_user31.png',
   `id_user_level` int(11) NOT NULL,
   `is_aktif` enum('y','n') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -375,7 +374,8 @@ INSERT INTO `tbl_user` (`id_users`, `full_name`, `email`, `password`, `images`, 
 (102, 'ditaa', 'dita@pertamini.com', '$2y$04$WZexHA4JYLeRn232K6vcCeL118FybTuPYiMyS8WN6P5WL059MA.4e', 'atomix_user31.png', 3, 'y'),
 (103, 'andik', 'andik@pertamini.com', '$2y$04$At9/XTFi/ZD6A1zCR0zPTelrFvW6WbbC4TRusla88/7frQK0mxwG6', 'atomix_user31.png', 3, 'y'),
 (104, 'amanda', 'amandamanganopo@pertamini.com', '$2y$04$1vCL8lmTvsifpuyj/pS0j.U7HZjjFfHsuvBPmsIzbd3ID70Vu6aqi', 'atomix_user31.png', 3, 'y'),
-(105, 'ahmad', 'ahmadsobari@pertamini.com', '$2y$04$TbLfx0UpAczfKdOMBbH.V.IkioRxIO8DeIz6DZkbtgezEozj2bkpm', 'atomix_user31.png', 3, 'y');
+(105, 'ahmad', 'ahmadsobari@pertamini.com', '$2y$04$TbLfx0UpAczfKdOMBbH.V.IkioRxIO8DeIz6DZkbtgezEozj2bkpm', 'atomix_user31.png', 3, 'y'),
+(108, 'ardi', 'hardiansyah@pertamini.my.id', '$2y$04$xCCRqo7hpH0s6G0.RfOrh.7S//WJ1ax/gseYD1s6ig8fIqAW0P6Vq', 'atomix_user31.png', 3, 'y');
 
 -- --------------------------------------------------------
 
@@ -393,7 +393,8 @@ CREATE TABLE `tbl_user_level` (
 --
 
 INSERT INTO `tbl_user_level` (`id_user_level`, `nama_level`) VALUES
-(1, 'Admin'),
+(1, 'Super Admin'),
+(2, 'Admin'),
 (3, 'User'),
 (4, 'HRD');
 
@@ -517,13 +518,13 @@ ALTER TABLE `karyawan_jabatan`
 -- AUTO_INCREMENT untuk tabel `tbl_hak_akses`
 --
 ALTER TABLE `tbl_hak_akses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_menu`
 --
 ALTER TABLE `tbl_menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_setting`
