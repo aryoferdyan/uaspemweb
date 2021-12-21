@@ -49,7 +49,7 @@
             <div class="inner">
               <h3>
                 <?php
-                $tma = ($connect->query('SELECT COUNT(cuti.id_cuti) AS hasil FROM cuti WHERE cuti.validasi = 1'));
+                $tma = ($connect->query('SELECT COUNT(cuti.id_karyawan) AS hasil FROM cuti WHERE cuti.validasi=1 AND MONTH(cuti.tanggal2) AND YEAR(cuti.tanggal2)'));
                 $hasil = $tma->fetch();
                 echo $hasil['hasil'];  ?>
               </h3>
@@ -69,7 +69,7 @@
             <div class="inner">
               <h3>
                 <?php
-                $tma = ($connect->query('SELECT COUNT(karyawan.id_karyawan) AS hasil FROM karyawan, presensi WHERE karyawan.id_karyawan = presensi.id_karyawan'));
+                $tma = ($connect->query('SELECT COUNT(karyawan.id_karyawan) AS hasil FROM karyawan, presensi WHERE karyawan.id_karyawan = presensi.id_karyawan AND MONTH(presensi.tanggal) AND YEAR(presensi.tanggal)'));
                 $Masuk = $tma->fetch();
                 $tdkMasuk = $karyawan['hasil'] - $Masuk['hasil'];
                 echo "$tdkMasuk" ?>

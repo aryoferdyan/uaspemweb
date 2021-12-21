@@ -42,8 +42,8 @@
                         <i class="fas fa-envelope"></i>
                     </div>
                     <div class="div">
-                        <h5>Email</h5>
-                        <input type="text" class="form-control" name="email" required="">
+                        <h5></h5>
+                        <input placeholder="username/email" type="text" class="form-control" name="email" required="">
                     </div>
                 </div>
                 <div class="input-div pass">
@@ -51,8 +51,8 @@
                         <i class="fas fa-lock"></i>
                     </div>
                     <div class="div">
-                        <h5>Password</h5>
-                        <input type="password" class="form-control" name="password" required="">
+                        <h5></h5>
+                        <input type="password" placeholder="password" class="form-control" name="password" required="">
                     </div>
                 </div>
                 <input type="submit" class="btn btn-primary" style="background-color: #003b6f" value="Login">

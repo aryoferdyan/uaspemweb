@@ -3,31 +3,31 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Gaji extends CI_Controller
+class Gaji_hrd extends CI_Controller
 {
     function __construct()
     {
         parent::__construct();
         is_login();
-        $this->load->model('Gaji_model');
+        $this->load->model('Gaji_hrd_model');
         $this->load->library('form_validation');
         $this->load->library('datatables');
     }
 
     public function index()
     {
-        $this->template->load('template', 'gaji/gaji_list');
+        $this->template->load('template', 'gaji_hrd/gaji_list');
     }
 
     public function json()
     {
         header('Content-Type: application/json');
-        echo $this->Gaji_model->json();
+        echo $this->Gaji_hrd_model->json();
     }
 
     public function print($id)
     {
-        $row = $this->Gaji_model->get_by_id($id);
+        $row = $this->Gaji_hrd_model->get_by_id($id);
         if ($row) {
             $data = array(
                 'no_slip' => $row->no_slip,
@@ -40,10 +40,10 @@ class Gaji extends CI_Controller
                 'tgl_penggajian' => $row->tgl_penggajian
 
             );
-            $this->load->view('gaji/gaji_print', $data);
+            $this->load->view('gaji_hrd/gaji_print', $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
-            redirect(site_url('gaji'));
+            redirect(site_url('gaji_hrd'));
         }
     }
 
@@ -51,7 +51,7 @@ class Gaji extends CI_Controller
     {
         $data = array(
             'button' => 'Create',
-            'action' => site_url('gaji/create_action'),
+            'action' => site_url('gaji_hrd/create_action'),
             'no_slip' => set_value('no_slip'),
             'id_karyawan' => set_value('id_karyawan'),
             // 'nama' => set_value('nama'),
@@ -60,7 +60,7 @@ class Gaji extends CI_Controller
             'tgl_penggajian' => set_value('id_penggajian'),
             
         );
-        $this->template->load('template', 'gaji/gaji_form', $data);
+        $this->template->load('template', 'gaji_hrd/gaji_form', $data);
     }
 
     public function create_action()
@@ -77,9 +77,9 @@ class Gaji extends CI_Controller
                 'thn_periode' => $this->input->post('thn_periode', TRUE),
                 'tgl_penggajian' => $this->input->post('tgl_penggajian', TRUE)
             );
-            $this->Gaji_model->insert($data);
+            $this->Gaji_hrd_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success 2');
-            redirect(site_url('gaji'));
+            redirect(site_url('gaji_hrd'));
         }
     }
 
